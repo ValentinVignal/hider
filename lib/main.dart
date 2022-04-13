@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hider/screens/login/login_screen.dart';
+import 'package:hider/services/navigator_key.dart';
 import 'package:hider/utils/theme.dart';
 
 Future<void> main() async {
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Hider',
       theme: lightTheme,
       darkTheme: darkTheme,
+      navigatorKey: navigatorKey,
       home: const LoginScreen(),
     );
   }

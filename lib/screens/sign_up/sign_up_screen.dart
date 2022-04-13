@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hider/screens/home/home_screen.dart';
 import 'package:hider/screens/login/login_screen.dart';
+import 'package:hider/services/authentication_model.dart';
 import 'package:hider/widgets/animated_visibility.dart';
 
 /// The sign up screen.
@@ -85,10 +87,23 @@ class _SignUpFormState extends State<_SignUpForm> {
         .collection('users')
         .doc(_username)
         .set({'password': _password1}, SetOptions(merge: true));
+
+    AuthenticationModel.instance.login(
+      username: _username,
+      password: _password1,
+    );
+
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (_) => const HomeScreen(),
+      ),
+      (route) => false,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       children: [
         TextFormField(
@@ -136,7 +151,14 @@ class _SignUpFormState extends State<_SignUpForm> {
         ),
         AnimatedVisibility(
           visible: _error.isNotEmpty,
-          child: Text(_error),
+          child: Center(
+            child: Text(
+              _error,
+              style: TextStyle(
+                color: theme.colorScheme.error,
+              ),
+            ),
+          ),
         ),
       ],
     );
