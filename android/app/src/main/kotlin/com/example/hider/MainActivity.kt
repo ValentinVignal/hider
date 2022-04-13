@@ -1,4 +1,4 @@
-package com.example.hider
+package com.valentinvignal.hider
 
 import io.flutter.embedding.android.FlutterActivity
 
