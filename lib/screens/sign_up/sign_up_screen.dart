@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hider/screens/login/login_screen.dart';
+import 'package:hider/widgets/animated_visibility.dart';
 
 /// The sign up screen.
 class SignUpScreen extends StatelessWidget {
@@ -45,37 +47,98 @@ class SignUpScreen extends StatelessWidget {
 }
 
 /// The form displayed in the login screen.
-class _SignUpForm extends StatelessWidget {
+class _SignUpForm extends StatefulWidget {
   const _SignUpForm({Key? key}) : super(key: key);
 
   @override
+  State<_SignUpForm> createState() => _SignUpFormState();
+}
+
+class _SignUpFormState extends State<_SignUpForm> {
+  var _username = '';
+  var _password1 = '';
+  var _password2 = '';
+  var _error = '';
+
+  bool get _canSignUp {
+    return _username.isNotEmpty &&
+        _password1.isNotEmpty &&
+        _password2.isNotEmpty &&
+        _password1 == _password2;
+  }
+
+  Future<void> _onSignUp() async {
+    setState(() {
+      _error = '';
+    });
+    final user = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(_username)
+        .get();
+    if (user.exists) {
+      setState(() {
+        _error = 'Username already exists';
+      });
+      return;
+    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(_username)
+        .set({'password': _password1}, SetOptions(merge: true));
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Form(
-      child: Column(
-        children: [
-          TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'Email',
-            ),
+    return Column(
+      children: [
+        TextFormField(
+          decoration: const InputDecoration(
+            labelText: 'Username',
           ),
-          const SizedBox(height: 8),
-          TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'Password',
-            ),
+          initialValue: _username,
+          onChanged: (value) {
+            setState(() {
+              _username = value;
+            });
+          },
+        ),
+        const SizedBox(height: 8),
+        TextFormField(
+          decoration: const InputDecoration(
+            labelText: 'Password',
           ),
-          TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'Confirm password',
-            ),
+          obscureText: true,
+          initialValue: _username,
+          onChanged: (value) {
+            setState(() {
+              _password1 = value;
+            });
+          },
+        ),
+        TextFormField(
+          decoration: InputDecoration(
+            labelText: 'Confirm password',
+            errorText:
+                _password1 != _password2 ? 'Passwords do not match' : null,
           ),
-          const SizedBox(height: 8),
-          ElevatedButton(
-            onPressed: () {},
-            child: const Text('Sign up'),
-          ),
-        ],
-      ),
+          obscureText: true,
+          initialValue: _username,
+          onChanged: (value) {
+            setState(() {
+              _password2 = value;
+            });
+          },
+        ),
+        const SizedBox(height: 8),
+        ElevatedButton(
+          onPressed: _canSignUp ? _onSignUp : null,
+          child: const Text('Sign up'),
+        ),
+        AnimatedVisibility(
+          visible: _error.isNotEmpty,
+          child: Text(_error),
+        ),
+      ],
     );
   }
 }

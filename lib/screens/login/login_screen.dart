@@ -55,7 +55,7 @@ class _LoginForm extends StatelessWidget {
         children: [
           TextFormField(
             decoration: const InputDecoration(
-              labelText: 'Email',
+              labelText: 'Username',
             ),
           ),
           const SizedBox(height: 8),
