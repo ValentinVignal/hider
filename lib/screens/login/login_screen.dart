@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hider/screens/home/home_screen.dart';
 import 'package:hider/screens/sign_up/sign_up_screen.dart';
@@ -75,7 +79,14 @@ class _LoginFormState extends State<_LoginForm> {
         .get();
     if (!user.exists) {
       setState(() {
-        _error = 'Username does not exist';
+        _error = 'Incorrect username or password';
+      });
+      return;
+    }
+    final hash = sha512.convert(utf8.encode(_password)).bytes;
+    if (!listEquals(List<int>.from(user.data()!['_']), hash)) {
+      setState(() {
+        _error = 'Incorrect username or password';
       });
       return;
     }
@@ -109,6 +120,7 @@ class _LoginFormState extends State<_LoginForm> {
                 _username = value;
               });
             },
+            textInputAction: TextInputAction.next,
           ),
           const SizedBox(height: 8),
           TextFormField(
@@ -121,11 +133,16 @@ class _LoginFormState extends State<_LoginForm> {
                 _password = value;
               });
             },
+            onEditingComplete: () {
+              if (_canLogin) {
+                _onLogin();
+              }
+            },
           ),
           const SizedBox(height: 8),
           ElevatedButton(
             onPressed: _canLogin ? _onLogin : null,
-            child: const Text('Login'),
+            child: const Text('Log in'),
           ),
           AnimatedVisibility(
             visible: _error.isNotEmpty,

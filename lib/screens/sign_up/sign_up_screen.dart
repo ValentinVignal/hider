@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:hider/screens/home/home_screen.dart';
 import 'package:hider/screens/login/login_screen.dart';
@@ -83,10 +86,11 @@ class _SignUpFormState extends State<_SignUpForm> {
       });
       return;
     }
+    final hash = sha512.convert(utf8.encode(_password1)).bytes;
     await FirebaseFirestore.instance
         .collection('users')
         .doc(_username)
-        .set({'password': _password1}, SetOptions(merge: true));
+        .set({'_': hash});
 
     AuthenticationModel.instance.login(
       username: _username,
@@ -116,6 +120,7 @@ class _SignUpFormState extends State<_SignUpForm> {
               _username = value;
             });
           },
+          textInputAction: TextInputAction.next,
         ),
         const SizedBox(height: 8),
         TextFormField(
@@ -129,6 +134,7 @@ class _SignUpFormState extends State<_SignUpForm> {
               _password1 = value;
             });
           },
+          textInputAction: TextInputAction.next,
         ),
         TextFormField(
           decoration: InputDecoration(
