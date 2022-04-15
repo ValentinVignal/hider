@@ -2,6 +2,7 @@
     "words": [
         "cupertino",
         "firestore",
-        "riverpod"
+        "riverpod",
+        "serializers"
     ]
 }
