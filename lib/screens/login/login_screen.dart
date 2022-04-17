@@ -36,11 +36,11 @@ class LoginScreen extends StatelessWidget {
             Center(
               child: TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (_) => const SignUpScreen(),
-                      ),
-                      (route) => false);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const SignUpScreen(),
+                    ),
+                  );
                 },
                 child: const Text('Sign up'),
               ),
@@ -64,6 +64,7 @@ class _LoginFormState extends State<_LoginForm> {
   var _username = '';
   var _password = '';
   var _error = '';
+  var _hidePassword = true;
 
   bool get _canLogin {
     return _username.isNotEmpty && _password.isNotEmpty;
@@ -83,7 +84,7 @@ class _LoginFormState extends State<_LoginForm> {
       });
       return;
     }
-    final hash = sha512.convert(utf8.encode(_password)).bytes;
+    final hash = sha256.convert(utf8.encode(_password)).bytes;
     if (!listEquals(List<int>.from(user.data()!['_']), hash)) {
       setState(() {
         _error = 'Incorrect username or password';
@@ -124,8 +125,20 @@ class _LoginFormState extends State<_LoginForm> {
           ),
           const SizedBox(height: 8),
           TextFormField(
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Password',
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _hidePassword
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _hidePassword = !_hidePassword;
+                  });
+                },
+              ),
             ),
             initialValue: _password,
             onChanged: (value) {
@@ -138,6 +151,7 @@ class _LoginFormState extends State<_LoginForm> {
                 _onLogin();
               }
             },
+            obscureText: _hidePassword,
           ),
           const SizedBox(height: 8),
           ElevatedButton(

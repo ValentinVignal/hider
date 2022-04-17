@@ -63,7 +63,17 @@ class _SignUpFormState extends State<_SignUpForm> {
   var _username = '';
   var _password1 = '';
   var _password2 = '';
+  var _hidePassword = true;
   var _error = '';
+  final _passwordFocusNode1 = FocusNode();
+  final _passwordFocusNode2 = FocusNode();
+
+  @override
+  void dispose() {
+    _passwordFocusNode1.dispose();
+    _passwordFocusNode2.dispose();
+    super.dispose();
+  }
 
   bool get _canSignUp {
     return _username.isNotEmpty &&
@@ -76,6 +86,14 @@ class _SignUpFormState extends State<_SignUpForm> {
     setState(() {
       _error = '';
     });
+
+    final confirm = (await showDialog<bool>(
+          context: context,
+          builder: (_) => const _ConfirmationDialog(),
+        )) ??
+        false;
+    if (!confirm) return;
+
     final user = await FirebaseFirestore.instance
         .collection('users')
         .doc(_username)
@@ -86,7 +104,7 @@ class _SignUpFormState extends State<_SignUpForm> {
       });
       return;
     }
-    final hash = sha512.convert(utf8.encode(_password1)).bytes;
+    final hash = sha256.convert(utf8.encode(_password1)).bytes;
     await FirebaseFirestore.instance
         .collection('users')
         .doc(_username)
@@ -121,34 +139,71 @@ class _SignUpFormState extends State<_SignUpForm> {
             });
           },
           textInputAction: TextInputAction.next,
+          onFieldSubmitted: (_) {
+            _passwordFocusNode1.requestFocus();
+          },
         ),
         const SizedBox(height: 8),
         TextFormField(
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             labelText: 'Password',
+            suffixIcon: IconButton(
+              icon: Icon(
+                _hidePassword
+                    ? Icons.visibility_off_outlined
+                    : Icons.visibility_outlined,
+              ),
+              onPressed: () {
+                setState(() {
+                  _hidePassword = !_hidePassword;
+                });
+              },
+            ),
           ),
-          obscureText: true,
+          obscureText: _hidePassword,
           initialValue: _username,
           onChanged: (value) {
             setState(() {
               _password1 = value;
             });
           },
+          focusNode: _passwordFocusNode1,
           textInputAction: TextInputAction.next,
+          onFieldSubmitted: (_) {
+            _passwordFocusNode2.requestFocus();
+          },
         ),
         TextFormField(
           decoration: InputDecoration(
             labelText: 'Confirm password',
             errorText:
                 _password1 != _password2 ? 'Passwords do not match' : null,
+            suffixIcon: IconButton(
+              icon: Icon(
+                _hidePassword
+                    ? Icons.visibility_off_outlined
+                    : Icons.visibility_outlined,
+              ),
+              onPressed: () {
+                setState(() {
+                  _hidePassword = !_hidePassword;
+                });
+              },
+            ),
           ),
-          obscureText: true,
+          obscureText: _hidePassword,
           initialValue: _username,
           onChanged: (value) {
             setState(() {
               _password2 = value;
             });
           },
+          onEditingComplete: () {
+            if (_canSignUp) {
+              _onSignUp();
+            }
+          },
+          focusNode: _passwordFocusNode2,
         ),
         const SizedBox(height: 8),
         ElevatedButton(
@@ -165,6 +220,34 @@ class _SignUpFormState extends State<_SignUpForm> {
               ),
             ),
           ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ConfirmationDialog extends StatelessWidget {
+  const _ConfirmationDialog({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Are you sure about your password?'),
+      content: const Text(
+        'This password will be used to encrypt your data. You won\'t be able to change it later. If you forget your password, you won\'t be able to access your data.',
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(false);
+          },
+          child: const Text('Cancel'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop(true);
+          },
+          child: const Text('Continue'),
         ),
       ],
     );

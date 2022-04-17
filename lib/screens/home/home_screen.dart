@@ -74,7 +74,7 @@ class HomeScreen extends StatelessWidget {
         onPressed: () {
           const p = 'password';
           final bytes = utf8.encode(p);
-          final newBytes = sha512.convert(bytes).bytes;
+          final newBytes = sha256.convert(bytes).bytes;
         },
         child: const Icon(Icons.add),
       ),
