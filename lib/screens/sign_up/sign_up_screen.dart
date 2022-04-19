@@ -1,11 +1,8 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:hider/screens/home/home_screen.dart';
 import 'package:hider/screens/login/login_screen.dart';
 import 'package:hider/services/authentication_model.dart';
+import 'package:hider/services/firestore/firestore_item_service.dart';
 import 'package:hider/services/firestore/firestore_user_service.dart';
 import 'package:hider/services/user.dart';
 import 'package:hider/widgets/animated_visibility.dart';
@@ -104,16 +101,13 @@ class _SignUpFormState extends State<_SignUpForm> {
       });
       return;
     }
-    final hash = sha256.convert(utf8.encode(_password1)).bytes;
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(_username)
-        .set({'_': hash});
 
     final user = await FirestoreUserService.save(
       username: _username,
       password: _password1,
     );
+
+    await FirestoreItemService.collection.doc(user.id).set(const {});
 
     AuthenticationModel.instance.login(User(
       id: user.id,

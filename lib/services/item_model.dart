@@ -5,5 +5,5 @@ import 'package:riverpod/riverpod.dart';
 
 final itemProvider =
     StreamProvider.autoDispose.family<Item, HiderPath>((ref, path) {
-  return FirestoreItemService.fromPath(path);
+  return FirestoreItemService.watch(path);
 });

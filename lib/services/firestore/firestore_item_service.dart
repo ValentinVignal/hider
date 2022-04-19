@@ -6,20 +6,33 @@ import 'package:hider/utils/path.dart';
 mixin FirestoreItemService {
   static const _collectionName = 'items';
 
-  static final _collection = FirebaseFirestore.instance.collection(
+  static final collection = FirebaseFirestore.instance.collection(
     _collectionName,
   );
 
-  static Stream<Item> fromPath(HiderPath path) {
-    var documentReference =
-        _collection.doc(AuthenticationModel.instance.user.id);
+  static DocumentReference<Map<String, dynamic>> _documentReference(
+      HiderPath path) {
+    var documentReference = collection.doc(
+      AuthenticationModel.instance.user.id,
+    );
     for (final _path in path) {
       documentReference =
           documentReference.collection(_collectionName).doc(_path);
     }
-    // TODO: Combine children.
-    return documentReference.snapshots().map((documentSnapshot) {
+    return documentReference;
+  }
+
+  static Stream<Item> watch(HiderPath path) {
+    return _documentReference(path).snapshots().map((documentSnapshot) {
       return Item.fromDocumentSnapshot(documentSnapshot);
     });
+  }
+
+  static Future<String> create(HiderPath path) async {
+    final collectionReference = _documentReference(path).collection(
+      _collectionName,
+    );
+    final documentReference = await collectionReference.add(const {});
+    return documentReference.id;
   }
 }
