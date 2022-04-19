@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:hider/screens/home/home_screen.dart';
 import 'package:hider/screens/login/login_screen.dart';
 import 'package:hider/services/authentication_model.dart';
+import 'package:hider/services/firestore/firestore_user_service.dart';
+import 'package:hider/services/user.dart';
 import 'package:hider/widgets/animated_visibility.dart';
 
 /// The sign up screen.
@@ -94,11 +96,9 @@ class _SignUpFormState extends State<_SignUpForm> {
         false;
     if (!confirm) return;
 
-    final user = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(_username)
-        .get();
-    if (user.exists) {
+    final existingUser = await FirestoreUserService.getByUsername(_username);
+
+    if (existingUser != null) {
       setState(() {
         _error = 'Username already exists';
       });
@@ -110,10 +110,16 @@ class _SignUpFormState extends State<_SignUpForm> {
         .doc(_username)
         .set({'_': hash});
 
-    AuthenticationModel.instance.login(
+    final user = await FirestoreUserService.save(
       username: _username,
       password: _password1,
     );
+
+    AuthenticationModel.instance.login(User(
+      id: user.id,
+      username: _username,
+      password: _password1,
+    ));
 
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(

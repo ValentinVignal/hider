@@ -1,11 +1,10 @@
-import 'package:built_value/built_value.dart';
-
-part 'user.g.dart';
-
-abstract class User implements Built<User, UserBuilder> {
-  User._();
-  factory User([void Function(UserBuilder) updates]) = _$User;
-
-  // Can never be null.
-  int get id;
+class User {
+  User({
+    required this.id,
+    required this.username,
+    required this.password,
+  });
+  final String id;
+  final String username;
+  final String password;
 }

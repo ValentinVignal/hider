@@ -1,20 +1,36 @@
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
+import 'package:hider/utils/json.dart';
 
-part 'item.g.dart';
+class Item with EquatableMixin {
+  const Item({
+    required this.id,
+    required this.description,
+    required this.name,
+    required this.value,
+    this.items = const [],
+  });
 
-abstract class Item implements Built<Item, ItemBuilder> {
-  Item._();
-  factory Item([void Function(ItemBuilder) updates]) = _$Item;
+  factory Item.fromDocumentSnapshot(DocumentSnapshot<Json> documentSnapshot) {
+    final data = documentSnapshot.data() ?? const {};
+    return Item(
+      id: documentSnapshot.id,
+      // TODO: Decrypt
+      name: data['name'] ?? 'name',
+      value: data['value'] ?? 'value',
+      description: data['description'] ?? 'description',
+      items: const [],
+    );
+  }
 
-  // Can never be null.
-  String get title;
+  final String id;
+  final String description;
+  final String name;
 
-  String get description;
+  final String value;
 
-  String get hidden;
+  final List<Item> items;
 
-  List<Item>? get items;
-
-  static Serializer<Item> get serializer => _$itemSerializer;
+  @override
+  List<Object> get props => [id];
 }

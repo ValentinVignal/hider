@@ -1,16 +1,24 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
+import 'package:hider/services/user.dart';
+
 class AuthenticationModel {
   static final instance = AuthenticationModel();
 
-  var username = '';
-  var password = '';
+  User? _user;
 
-  void login({required String username, required String password}) {
-    this.username = username;
-    this.password = password;
+  User get user => _user!;
+
+  void login(User user) {
+    _user = user;
   }
 
   void logout() {
-    username = '';
-    password = '';
+    _user = null;
   }
+
+  /// Returned the hashed value from the given [value].
+  static List<int> hash(String value) =>
+      sha256.convert(utf8.encode(value)).bytes;
 }

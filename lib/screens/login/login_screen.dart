@@ -1,12 +1,13 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hider/screens/home/home_screen.dart';
 import 'package:hider/screens/sign_up/sign_up_screen.dart';
 import 'package:hider/services/authentication_model.dart';
+import 'package:hider/services/firestore/firestore_user_service.dart';
+import 'package:hider/services/user.dart';
 import 'package:hider/widgets/animated_visibility.dart';
 
 /// The login screen.
@@ -74,18 +75,15 @@ class _LoginFormState extends State<_LoginForm> {
     setState(() {
       _error = '';
     });
-    final user = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(_username)
-        .get();
-    if (!user.exists) {
+    final user = await FirestoreUserService.getByUsername(_username);
+    if (user == null) {
       setState(() {
         _error = 'Incorrect username or password';
       });
       return;
     }
     final hash = sha256.convert(utf8.encode(_password)).bytes;
-    if (!listEquals(List<int>.from(user.data()!['_']), hash)) {
+    if (!listEquals(user.password, hash)) {
       setState(() {
         _error = 'Incorrect username or password';
       });
@@ -93,8 +91,7 @@ class _LoginFormState extends State<_LoginForm> {
     }
 
     AuthenticationModel.instance.login(
-      username: _username,
-      password: _password,
+      User(id: user.id, username: _username, password: _password),
     );
 
     Navigator.of(context).pushAndRemoveUntil(
