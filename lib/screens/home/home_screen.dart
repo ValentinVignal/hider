@@ -67,21 +67,29 @@ class HomeContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final itemModel = ref.watch(itemProvider(path));
+    final subItemsModel = ref.watch(subItemsProvider(path));
     return itemModel.map(
       data: (asyncData) {
+        final length = (subItemsModel.asData?.value.length ?? 0) +
+            1; // + 1 for the description and all
+        print('leng $length');
         return ListView.builder(
-          itemCount: asyncData.value.items.length +
-              1, // + 1 for the description and all
+          itemCount: length,
           itemBuilder: (context, index) {
+            print('asData ${subItemsModel.asData?.value}');
             if (index == 0) {
               return ItemWidget(path);
             }
             return ListTile(
-              title: Text(asyncData.value.items[index - 1].name),
+              title: Text(
+                  subItemsModel.asData?.value.toList()[index - 1].name ??
+                      'default name for subitem'),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (_) {
                   return HomeScreen(
-                    path: path.add(asyncData.value.items[index - 1].id),
+                    path: path.add(
+                        subItemsModel.asData?.value.toList()[index - 1].id ??
+                            ''),
                   );
                 }));
               },

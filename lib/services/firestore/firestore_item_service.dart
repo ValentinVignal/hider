@@ -28,6 +28,17 @@ mixin FirestoreItemService {
     });
   }
 
+  static Stream<Iterable<Item>> watchSubs(HiderPath path) {
+    return _documentReference(path)
+        .collection(_collectionName)
+        .snapshots()
+        .map((querySnapshot) {
+      return querySnapshot.docs.map((documentSnapshot) {
+        return Item.fromDocumentSnapshot(documentSnapshot);
+      });
+    });
+  }
+
   static Future<String> create(HiderPath path) async {
     final collectionReference = _documentReference(path).collection(
       _collectionName,

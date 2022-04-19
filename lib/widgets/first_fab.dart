@@ -15,7 +15,7 @@ class FirstFAB extends ConsumerWidget {
     return FloatingActionButton(
       heroTag: 'firstFAB',
       onPressed: () {
-        ref.read(editItemProvider(path).notifier).switchState();
+        ref.read(editItemProvider(path).notifier).state = !isEditing;
       },
       child: AnimatedRotationSwitcher(
         child: Icon(

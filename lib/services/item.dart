@@ -8,7 +8,6 @@ class Item with EquatableMixin {
     required this.description,
     required this.name,
     required this.value,
-    this.items = const [],
   });
 
   factory Item.fromDocumentSnapshot(DocumentSnapshot<Json> documentSnapshot) {
@@ -19,7 +18,6 @@ class Item with EquatableMixin {
       name: data['name'] ?? 'name',
       value: data['value'] ?? 'value',
       description: data['description'] ?? 'description',
-      items: const [],
     );
   }
 
@@ -28,8 +26,6 @@ class Item with EquatableMixin {
   final String name;
 
   final String value;
-
-  final List<Item> items;
 
   @override
   List<Object> get props => [id];

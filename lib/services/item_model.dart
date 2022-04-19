@@ -7,3 +7,10 @@ final itemProvider =
     StreamProvider.autoDispose.family<Item, HiderPath>((ref, path) {
   return FirestoreItemService.watch(path);
 });
+
+final subItemsProvider =
+    StreamProvider.autoDispose.family<Iterable<Item>, HiderPath>(
+  (ref, path) {
+    return FirestoreItemService.watchSubs(path);
+  },
+);
