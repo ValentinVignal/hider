@@ -41,20 +41,32 @@ class _ItemValueWidgetState extends ConsumerState<ItemValueWidget> {
   @override
   void initState() {
     super.initState();
-    _controller.text = ref.read(itemProvider(widget.path)).value?.value ?? '';
+    _controller.text = ref.read(itemProvider(widget.path)).value;
+
+    _controller.addListener(() {
+      final itemModel = ref.read(itemProvider(widget.path).notifier);
+      itemModel.state = itemModel.state.copyWith(value: _controller.text);
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     ref.listen<String?>(
-        itemProvider(widget.path).select((value) => value.value?.value),
+        itemProvider(widget.path).select((value) => value.value),
         (previous, next) {
       if (previous == null && next != null) {
         _controller.text = next;
       }
     });
     final value = ref.watch(
-      itemProvider(widget.path).select((value) => value.value?.value ?? ''),
+      originalItemProvider(widget.path)
+          .select((value) => value.value?.value ?? ''),
     );
 
     final isEditing = ref.watch(editItemProvider(widget.path));

@@ -46,4 +46,9 @@ mixin FirestoreItemService {
     final documentReference = await collectionReference.add(const {});
     return documentReference.id;
   }
+
+  static Future<void> save(HiderPath path, Item item) async {
+    final documentReference = _documentReference(path);
+    await documentReference.set(item.toJson());
+  }
 }

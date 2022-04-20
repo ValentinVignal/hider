@@ -66,7 +66,7 @@ class HomeContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final itemModel = ref.watch(itemProvider(path));
+    final itemModel = ref.watch(originalItemProvider(path));
     final subItemsModel = ref.watch(subItemsProvider(path));
     return itemModel.map(
       data: (asyncData) {

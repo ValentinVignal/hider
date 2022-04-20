@@ -1,14 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hider/utils/json.dart';
 
-class Item with EquatableMixin {
-  const Item({
-    required this.id,
-    required this.description,
-    required this.name,
-    required this.value,
-  });
+part 'item.freezed.dart';
+
+@freezed
+class Item with _$Item {
+  const factory Item({
+    required String id,
+    required String description,
+    required String name,
+    required String value,
+  }) = _Item;
 
   factory Item.fromDocumentSnapshot(DocumentSnapshot<Json> documentSnapshot) {
     final data = documentSnapshot.data() ?? const {};
@@ -21,12 +24,16 @@ class Item with EquatableMixin {
     );
   }
 
-  final String id;
-  final String description;
-  final String name;
+  factory Item.empty(String id) => Item(
+        id: id,
+        description: '',
+        name: '',
+        value: '',
+      );
+}
 
-  final String value;
-
-  @override
-  List<Object> get props => [id];
+extension ExtensionItem on Item {
+  Json toJson() => {
+        'test': 'test',
+      };
 }

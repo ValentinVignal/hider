@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hider/services/edit_item_model.dart';
+import 'package:hider/services/firestore/firestore_item_service.dart';
+import 'package:hider/services/item_model.dart';
 import 'package:hider/utils/path.dart';
 import 'package:hider/widgets/animated_rotation_switcher.dart';
 
@@ -14,7 +16,13 @@ class FirstFAB extends ConsumerWidget {
     final isEditing = ref.watch(editItemProvider(path));
     return FloatingActionButton(
       heroTag: 'firstFAB',
-      onPressed: () {
+      onPressed: () async {
+        if (isEditing) {
+          // Save the item in the db
+          final modifiedItem = ref.read(itemProvider(path));
+          print(modifiedItem);
+          await FirestoreItemService.save(path, modifiedItem);
+        }
         ref.read(editItemProvider(path).notifier).state = !isEditing;
       },
       child: AnimatedRotationSwitcher(
