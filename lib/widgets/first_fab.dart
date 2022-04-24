@@ -20,7 +20,6 @@ class FirstFAB extends ConsumerWidget {
         if (isEditing) {
           // Save the item in the db
           final modifiedItem = ref.read(itemProvider(path));
-          print(modifiedItem);
           await FirestoreItemService.save(path, modifiedItem);
         }
         ref.read(editItemProvider(path).notifier).state = !isEditing;
