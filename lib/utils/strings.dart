@@ -1,0 +1,1 @@
+const noName = '[No name]';

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hider/services/edit_item_model.dart';
 import 'package:hider/services/item_model.dart';
 import 'package:hider/utils/path.dart';
+import 'package:markdown/markdown.dart' as md;
 
 class ItemWidget extends StatelessWidget {
   const ItemWidget(this.path, {Key? key}) : super(key: key);
@@ -12,14 +14,12 @@ class ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ItemValueWidget(path),
-        // ItemValueView(item.value),
-        // Text('Description', style: theme.textTheme.titleLarge),
-        // Text(item.description),
+        const SizedBox(height: 16),
+        ItemDescriptionWidget(path),
       ],
     );
   }
@@ -114,6 +114,116 @@ class _ItemValueWidgetState extends ConsumerState<ItemValueWidget> {
           ],
         ),
       ],
+    );
+  }
+}
+
+class ItemDescriptionWidget extends StatelessWidget {
+  const ItemDescriptionWidget(this.path, {Key? key}) : super(key: key);
+
+  final HiderPath path;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Description', style: theme.textTheme.titleLarge),
+        ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 24),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height / 2,
+              ),
+              child: ItemDescriptionTextWidget(path),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ItemDescriptionTextWidget extends ConsumerStatefulWidget {
+  const ItemDescriptionTextWidget(this.path, {Key? key}) : super(key: key);
+
+  final HiderPath path;
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ItemDescriptionWidgetState();
+}
+
+class _ItemDescriptionWidgetState
+    extends ConsumerState<ItemDescriptionTextWidget> {
+  final _controller = TextEditingController();
+
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.text = ref.read(itemProvider(widget.path)).description;
+
+    _controller.addListener(() {
+      final itemModel = ref.read(itemProvider(widget.path).notifier);
+      itemModel.state = itemModel.state.copyWith(description: _controller.text);
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ref.listen<String?>(
+        itemProvider(widget.path).select((value) => value.description),
+        (previous, next) {
+      if (previous == null && next != null) {
+        _controller.text = next;
+      }
+    });
+
+    final isEditing = ref.watch(editItemProvider(widget.path));
+    final Widget child;
+
+    if (isEditing) {
+      child = TextField(
+        controller: _controller,
+        scrollController: _scrollController,
+        expands: false,
+        maxLines: null,
+        textInputAction: TextInputAction.newline,
+      );
+    } else {
+      child = Markdown(
+        controller: _scrollController,
+        data: _controller.text,
+        selectable: true,
+        shrinkWrap: true,
+        extensionSet: md.ExtensionSet(
+          md.ExtensionSet.gitHubFlavored.blockSyntaxes,
+          [md.EmojiSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
+        ),
+      );
+    }
+
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 250),
+      transitionBuilder: (child, animation) {
+        return ScaleTransition(
+          scale: animation,
+          child: child,
+        );
+      },
+      child: child,
     );
   }
 }

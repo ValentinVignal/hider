@@ -18,13 +18,13 @@ class Item with _$Item {
 
   factory Item.fromDocumentSnapshot(DocumentSnapshot<Json> documentSnapshot) {
     final data = documentSnapshot.data() ?? const {};
-    print('data of item $data');
     return Item(
       id: documentSnapshot.id,
-      // TODO: Decrypt
-      name: data['name'] ?? 'name',
+      name: AuthenticationModel.instance.decrypt(data['name'] ?? ''),
       value: AuthenticationModel.instance.decrypt(data['value'] ?? ''),
-      description: data['description'] ?? 'description',
+      description: AuthenticationModel.instance.decrypt(
+        data['description'] ?? '',
+      ),
     );
   }
 
@@ -39,9 +39,11 @@ class Item with _$Item {
 extension ExtensionItem on Item {
   Json toJson() {
     return {
-      'value': AuthenticationModel.instance.encrypt(value),
-      'name': name,
-      'description': description,
+      if (value.isNotEmpty)
+        'value': AuthenticationModel.instance.encrypt(value),
+      if (name.isNotEmpty) 'name': AuthenticationModel.instance.encrypt(name),
+      if (description.isNotEmpty)
+        'description': AuthenticationModel.instance.encrypt(description),
     };
   }
 }
