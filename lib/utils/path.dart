@@ -23,4 +23,9 @@ class HiderPath extends Iterable<String> with EquatableMixin, Iterator<String> {
   bool moveNext() {
     return _path.iterator.moveNext();
   }
+
+  @override
+  String toString() {
+    return 'HiderPath{$_path}';
+  }
 }

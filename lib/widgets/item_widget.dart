@@ -60,7 +60,7 @@ class _ItemValueWidgetState extends ConsumerState<ItemValueWidget> {
     ref.listen<String?>(
         itemProvider(widget.path).select((value) => value.value),
         (previous, next) {
-      if (previous == null && next != null) {
+      if (next != null) {
         _controller.text = next;
       }
     });
@@ -186,7 +186,7 @@ class _ItemDescriptionWidgetState
     ref.listen<String?>(
         itemProvider(widget.path).select((value) => value.description),
         (previous, next) {
-      if (previous == null && next != null) {
+      if (next != null) {
         _controller.text = next;
       }
     });

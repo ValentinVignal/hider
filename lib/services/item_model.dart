@@ -10,7 +10,10 @@ final originalItemProvider =
 
 final itemProvider =
     StateProvider.autoDispose.family<Item, HiderPath>((ref, path) {
-  return ref.watch(originalItemProvider(path)).value ?? Item.empty(path.last);
+  final value = ref.watch(originalItemProvider(path)).value;
+  print('rebuild item $path, $value');
+  if (value != null) return value;
+  return Item.empty(path.isNotEmpty ? path.last : '');
 });
 
 final subItemsProvider =
