@@ -5,22 +5,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hider/services/edit_item_model.dart';
 import 'package:hider/services/item_model.dart';
 import 'package:hider/utils/path.dart';
+import 'package:hider/utils/strings.dart';
 import 'package:markdown/markdown.dart' as md;
 
-class ItemWidget extends StatelessWidget {
+class ItemWidget extends ConsumerWidget {
   const ItemWidget(this.path, {Key? key}) : super(key: key);
 
   final HiderPath path;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ItemValueWidget(path),
-        const SizedBox(height: 16),
-        ItemDescriptionWidget(path),
-      ],
+  Widget build(BuildContext context, WidgetRef ref) {
+    return WillPopScope(
+      onWillPop: () async {
+        final editItemModel = ref.read(editItemProvider(path).notifier);
+        if (editItemModel.state) {
+          editItemModel.state = !editItemModel.state;
+          return false;
+        }
+        return true;
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ItemValueWidget(path),
+          const SizedBox(height: 16),
+          ItemDescriptionWidget(path),
+        ],
+      ),
     );
   }
 }
@@ -60,8 +71,8 @@ class _ItemValueWidgetState extends ConsumerState<ItemValueWidget> {
     ref.listen<String?>(
         itemProvider(widget.path).select((value) => value.value),
         (previous, next) {
-      if (next != null) {
-        _controller.text = next;
+      if (previous.isNullOrEmpty && !next.isNullOrEmpty) {
+        _controller.text = next!;
       }
     });
     final value = ref.watch(
