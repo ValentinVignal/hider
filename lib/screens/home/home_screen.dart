@@ -49,42 +49,66 @@ class HomeContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final subItemsModel = ref.watch(subItemsProvider(path));
-    return ListView.builder(
-      itemCount: (subItemsModel.asData?.value.length ?? 0) +
-          1, // +1 for the item's fields.
-      itemBuilder: (context, index) {
-        if (index == 0) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ItemWidget(path),
-                const Divider(),
-              ],
-            ),
-          );
-        }
-        final child = subItemsModel.whenOrNull<Widget>(
-          error: (_, __) {
-            final theme = Theme.of(context);
-            return Center(
-              child: Text(
-                'Error',
-                style: TextStyle(color: theme.colorScheme.error),
+    return LayoutBuilder(builder: (context, constraints) {
+      final isBig = constraints.maxWidth >= 600;
+
+      return Row(
+        children: [
+          if (isBig) ...[
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ItemWidget(path),
               ),
-            );
-          },
-          loading: () => const Center(child: CircularProgressIndicator()),
-        );
+            ),
+            const VerticalDivider()
+          ],
+          Expanded(
+            child: ListView.builder(
+              itemCount: (subItemsModel.asData?.value.length ?? 0) +
+                  (isBig ? 0 : 1), // +1 for the item's fields.
+              itemBuilder: (context, index) {
+                if (!isBig && index == 0) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ItemWidget(path),
+                        const Divider(),
+                      ],
+                    ),
+                  );
+                }
+                final child = subItemsModel.whenOrNull<Widget>(
+                  error: (_, __) {
+                    final theme = Theme.of(context);
+                    return Center(
+                      child: Text(
+                        'Error',
+                        style: TextStyle(color: theme.colorScheme.error),
+                      ),
+                    );
+                  },
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                );
 
-        if (child != null) return child;
-
-        return SubItemWidget(
-          path: path,
-          item: subItemsModel.value!.toList()[index - 1],
-        );
-      },
-    );
+                if (child != null) return child;
+                final subItem =
+                    subItemsModel.value!.toList()[index - (isBig ? 0 : 1)];
+                return Hero(
+                  tag: subItem.id,
+                  child: SubItemWidget(
+                    path: path,
+                    item: subItem,
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      );
+    });
   }
 }

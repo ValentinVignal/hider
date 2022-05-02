@@ -120,7 +120,9 @@ class _ItemValueWidgetState extends ConsumerState<ItemValueWidget> {
                   _hide = !_hide;
                 });
               },
-              icon: const Icon(Icons.visibility),
+              icon: Icon(_hide
+                  ? Icons.visibility_off_outlined
+                  : Icons.visibility_outlined),
             ),
           ],
         ),
