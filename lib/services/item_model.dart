@@ -22,3 +22,8 @@ final subItemsProvider =
     return FirestoreItemService.watchSubs(path);
   },
 );
+
+final allItemsOfPathProvider =
+    StreamProvider.autoDispose.family<List<Item>, HiderPath>((ref, path) {
+  return FirestoreItemService.watchAllFromPath(path);
+});

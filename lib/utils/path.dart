@@ -28,4 +28,8 @@ class HiderPath extends Iterable<String> with EquatableMixin, Iterator<String> {
   String toString() {
     return 'HiderPath{$_path}';
   }
+
+  HiderPath subPath(int start, [int? end]) {
+    return HiderPath(_path.sublist(0, end));
+  }
 }

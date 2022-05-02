@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hider/screens/login/login_screen.dart';
 import 'package:hider/services/authentication_model.dart';
 import 'package:hider/services/edit_item_model.dart';
+import 'package:hider/services/item.dart';
 import 'package:hider/services/item_model.dart';
 import 'package:hider/utils/path.dart';
 import 'package:hider/utils/strings.dart';
@@ -60,15 +61,21 @@ class AppBarTitle extends ConsumerWidget {
   }
 }
 
-class AppBarTitleView extends StatelessWidget {
+class AppBarTitleView extends ConsumerWidget {
   const AppBarTitleView(this.path, {Key? key}) : super(key: key);
 
   final HiderPath path;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final itemsModel = ref.watch(allItemsOfPathProvider(path));
+    final nameList = [
+      'Home',
+      for (final item in itemsModel.value ?? <Item>[])
+        item.name.isEmpty ? noName : item.name,
+    ];
     return AutoSizeText(
-      'Home/${path.name}',
+      nameList.join('/'),
       maxLines: 2,
     );
   }

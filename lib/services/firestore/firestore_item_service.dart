@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hider/services/authentication_model.dart';
 import 'package:hider/services/item.dart';
@@ -50,5 +53,12 @@ mixin FirestoreItemService {
   static Future<void> save(HiderPath path, Item item) async {
     final documentReference = _documentReference(path);
     await documentReference.set(item.toJson());
+  }
+
+  static Stream<List<Item>> watchAllFromPath(HiderPath path) {
+    return StreamZip([
+      for (var index = 1, indexEnd = path.length; index <= indexEnd; index++)
+        watch(path.subPath(0, index)),
+    ]);
   }
 }
