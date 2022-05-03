@@ -44,3 +44,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+ios/firebase_app_id_file.json
+macos/firebase_app_id_file.json
+

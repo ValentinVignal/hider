@@ -36,7 +36,6 @@ class AuthenticationModel {
 
   String encrypt(String input) {
     final iv = IV.fromUtf8(_pN(16));
-    print('input $input');
     final encrypted = _encrypter.encrypt(input, iv: iv);
     return encrypted.base64;
   }
