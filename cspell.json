@@ -4,6 +4,7 @@
         "Encrypter",
         "firestore",
         "riverpod",
-        "serializers"
+        "serializers",
+        "Vignal"
     ]
 }
