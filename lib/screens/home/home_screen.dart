@@ -90,8 +90,9 @@ class HomeContent extends ConsumerWidget {
                       ),
                     );
                   },
-                  loading: () =>
-                      const Center(child: CircularProgressIndicator()),
+                  loading: () => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 );
 
                 if (child != null) return child;

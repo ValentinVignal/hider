@@ -4,6 +4,10 @@ import 'package:equatable/equatable.dart';
 class HiderPath extends Iterable<String> with EquatableMixin, Iterator<String> {
   const HiderPath([this._path = const []]);
 
+  factory HiderPath.fromUri(Uri uri) {
+    return HiderPath(uri.pathSegments);
+  }
+
   final List<String> _path;
 
   @override
@@ -31,5 +35,9 @@ class HiderPath extends Iterable<String> with EquatableMixin, Iterator<String> {
 
   HiderPath subPath(int start, [int? end]) {
     return HiderPath(_path.sublist(0, end));
+  }
+
+  Uri toUri() {
+    return Uri(pathSegments: _path);
   }
 }
