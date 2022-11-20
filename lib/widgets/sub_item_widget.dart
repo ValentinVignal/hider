@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hider/screens/home/home_screen.dart';
+import 'package:hider/router/routes.dart';
 import 'package:hider/services/item.dart';
 import 'package:hider/utils/path.dart';
 import 'package:hider/utils/strings.dart';
+
+import '../router/router.dart';
 
 class SubItemWidget extends ConsumerWidget {
   const SubItemWidget({
@@ -22,13 +24,7 @@ class SubItemWidget extends ConsumerWidget {
     return ListTile(
       title: Text(displayName),
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (_) {
-            return HomeScreen(
-              path: path.add(item.id),
-            );
-          },
-        ));
+        router.push(ItemRoute(path.add(item.id).toUri()).location);
       },
       trailing: IconButton(
         icon: const Icon(Icons.copy),

@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hider/screens/login/login_screen.dart';
 import 'package:hider/services/authentication_model.dart';
 import 'package:hider/services/edit_item_model.dart';
 import 'package:hider/services/item.dart';
@@ -21,11 +20,6 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
           onPressed: () {
             AuthenticationModel.instance.logout();
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (_) => const LoginScreen(),
-                ),
-                (route) => false);
           },
           icon: const Icon(Icons.logout),
         )
@@ -52,7 +46,6 @@ class AppBarTitle extends ConsumerWidget {
         return SizeTransition(
           sizeFactor: animation,
           axis: Axis.horizontal,
-          // axisAlignment: 1,
           child: child,
         );
       },
@@ -71,7 +64,7 @@ class AppBarTitleView extends ConsumerWidget {
     final itemsModel = ref.watch(allItemsOfPathProvider(path));
     final nameList = [
       'Home',
-      for (final item in itemsModel.value ?? <Item>[])
+      for (final item in itemsModel.value ?? const <Item>[])
         item.name.isEmpty ? noName : item.name,
     ];
     return AutoSizeText(

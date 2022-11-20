@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hider/router/routes.dart';
 import 'package:hider/screens/home/home_screen.dart';
-import 'package:hider/screens/login/login_screen.dart';
 import 'package:hider/services/authentication_model.dart';
 import 'package:hider/services/firestore/firestore_item_service.dart';
 import 'package:hider/services/firestore/firestore_user_service.dart';
 import 'package:hider/services/user.dart';
 import 'package:hider/widgets/animated_visibility.dart';
+
+import '../../router/router.dart';
 
 /// The sign up screen.
 class SignUpScreen extends StatelessWidget {
@@ -34,11 +36,7 @@ class SignUpScreen extends StatelessWidget {
             Center(
               child: TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (_) => const LoginScreen(),
-                      ),
-                      (route) => false);
+                  router.go(const LoginRoute().location);
                 },
                 child: const Text('Login'),
               ),

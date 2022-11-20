@@ -3,21 +3,22 @@ import 'dart:math';
 
 import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart';
+import 'package:flutter/foundation.dart' show ValueNotifier;
 import 'package:hider/services/user.dart';
 
-class AuthenticationModel {
+
+class AuthenticationModel extends ValueNotifier<User?> {
+  AuthenticationModel() : super(null);
   static final instance = AuthenticationModel();
 
-  User? _user;
-
-  User get user => _user!;
+  User get user => value!;
 
   void login(User user) {
-    _user = user;
+    value = user;
   }
 
   void logout() {
-    _user = null;
+    value = null;
   }
 
   /// Returned the hashed value from the given [value].
