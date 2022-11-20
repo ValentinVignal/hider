@@ -7,6 +7,7 @@ import 'package:hider/services/item_model.dart';
 import 'package:hider/utils/path.dart';
 import 'package:hider/utils/strings.dart';
 import 'package:markdown/markdown.dart' as md;
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ItemWidget extends ConsumerWidget {
   const ItemWidget(this.path, {Key? key}) : super(key: key);
@@ -225,6 +226,11 @@ class _ItemDescriptionWidgetState
           md.ExtensionSet.gitHubFlavored.blockSyntaxes,
           [md.EmojiSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
         ),
+        onTapLink: ((text, href, title) {
+          if (href != null) {
+            launchUrlString(href);
+          }
+        }),
       );
     }
 
