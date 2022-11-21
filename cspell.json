@@ -3,6 +3,7 @@
         "cupertino",
         "Encrypter",
         "firestore",
+        "mocktail",
         "riverpod",
         "serializers",
         "Vignal"

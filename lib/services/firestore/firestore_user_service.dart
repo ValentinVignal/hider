@@ -1,11 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hider/services/authentication_model.dart';
 import 'package:hider/services/firestore/firestore_user.dart';
+
+import 'instance.dart';
 
 mixin FirestoreUserService {
   static const _collectionName = 'users';
 
-  static final _collection = FirebaseFirestore.instance.collection(
+  static final _collection = FirestoreInstance.instance.collection(
     _collectionName,
   );
 

@@ -6,7 +6,6 @@ import 'package:encrypt/encrypt.dart';
 import 'package:flutter/foundation.dart' show ValueNotifier;
 import 'package:hider/services/user.dart';
 
-
 class AuthenticationModel extends ValueNotifier<User?> {
   AuthenticationModel() : super(null);
   static final instance = AuthenticationModel();
