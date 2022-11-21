@@ -6,6 +6,6 @@ mixin FirestoreInstance {
   static FirebaseFirestore? mockInstance;
 
   static FirebaseFirestore get instance {
-    return mockInstance ?? FirestoreInstance.instance;
+    return mockInstance ?? FirebaseFirestore.instance;
   }
 }
