@@ -9,7 +9,6 @@ jobs:
   Linter:
     runs-on: macos-latest
     name: Linter
-    needs: packages
     steps:
       - uses: actions/checkout@v3
       - name: Set up Flutter
