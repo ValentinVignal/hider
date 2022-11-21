@@ -7,7 +7,7 @@ class Hider extends StatefulWidget {
   final Widget child;
 
   @override
-  _HiderState createState() => _HiderState();
+  State<Hider> createState() => _HiderState();
 }
 
 class _HiderState extends State<Hider> with WidgetsBindingObserver {
@@ -16,12 +16,12 @@ class _HiderState extends State<Hider> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 

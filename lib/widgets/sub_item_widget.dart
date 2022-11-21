@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hider/router/routes.dart';
 import 'package:hider/services/item.dart';
 import 'package:hider/utils/path.dart';
 import 'package:hider/utils/strings.dart';
-
-import '../router/router.dart';
 
 class SubItemWidget extends ConsumerWidget {
   const SubItemWidget({
@@ -24,13 +23,16 @@ class SubItemWidget extends ConsumerWidget {
     return ListTile(
       title: Text(displayName),
       onTap: () {
-        router.push(ItemRoute(path.add(item.id).toUri()).location);
+        GoRouter.of(context).push(
+          ItemRoute(path.add(item.id).toUri()).location,
+        );
       },
       trailing: IconButton(
         icon: const Icon(Icons.copy),
         onPressed: () async {
+          final scaffoldMessenger = ScaffoldMessenger.of(context);
           await Clipboard.setData(ClipboardData(text: item.value));
-          ScaffoldMessenger.of(context).showSnackBar(
+          scaffoldMessenger.showSnackBar(
             const SnackBar(content: Text("Copied")),
           );
         },

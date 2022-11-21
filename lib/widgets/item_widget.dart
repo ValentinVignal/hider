@@ -91,8 +91,9 @@ class _ItemValueWidgetState extends ConsumerState<ItemValueWidget> {
             Text('Value', style: theme.textTheme.titleLarge),
             IconButton(
               onPressed: () async {
+                final scaffoldMessenger = ScaffoldMessenger.of(context);
                 await Clipboard.setData(ClipboardData(text: value));
-                ScaffoldMessenger.of(context).showSnackBar(
+                scaffoldMessenger.showSnackBar(
                   const SnackBar(content: Text("Copied")),
                 );
               },

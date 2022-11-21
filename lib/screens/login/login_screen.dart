@@ -3,13 +3,12 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hider/router/routes.dart';
 import 'package:hider/services/authentication_model.dart';
 import 'package:hider/services/firestore/firestore_user_service.dart';
 import 'package:hider/services/user.dart';
 import 'package:hider/widgets/animated_visibility.dart';
-
-import '../../router/router.dart';
 
 /// The login screen.
 class LoginScreen extends StatelessWidget {
@@ -38,7 +37,7 @@ class LoginScreen extends StatelessWidget {
             Center(
               child: TextButton(
                 onPressed: () {
-                  router.go(const SignUpRoute().location);
+                  GoRouter.of(context).go(const SignUpRoute().location);
                 },
                 child: const Text('Sign up'),
               ),

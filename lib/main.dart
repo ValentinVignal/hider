@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:hider/firebase_options.dart';
 import 'package:hider/utils/theme.dart';
@@ -19,27 +20,29 @@ Future<void> main() async {
   );
   usePathUrlStrategy();
 
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: HiderApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class HiderApp extends ConsumerWidget {
+  const HiderApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return ProviderScope(
-      child: MaterialApp.router(
-        routerConfig: router,
-        title: 'Hider',
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        builder: (context, child) {
-          return Hider(
-            child: child!,
-          );
-        },
-      ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
+      routerConfig: ref.watch(routerProvider),
+      title: 'Hider',
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      builder: (context, child) {
+        return Hider(
+          child: child!,
+        );
+      },
     );
   }
 }

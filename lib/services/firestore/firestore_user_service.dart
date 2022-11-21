@@ -1,11 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hider/services/authentication_model.dart';
 import 'package:hider/services/firestore/firestore_user.dart';
+
+import 'instance.dart';
 
 mixin FirestoreUserService {
   static const _collectionName = 'users';
 
-  static final _collection = FirebaseFirestore.instance.collection(
+  static final _collection = FirestoreInstance.instance.collection(
     _collectionName,
   );
 
@@ -24,16 +25,16 @@ mixin FirestoreUserService {
     required String username,
     required String password,
   }) async {
-    final _username = AuthenticationModel.hash(username);
-    final _password = AuthenticationModel.hash(password);
+    final hashedUsername = AuthenticationModel.hash(username);
+    final hashedPassword = AuthenticationModel.hash(password);
     final documentReference = await _collection.add({
-      '_0': _username,
-      '_1': _password,
+      '_0': hashedUsername,
+      '_1': hashedPassword,
     });
     return FirestoreUser(
       id: documentReference.id,
-      username: _username,
-      password: _password,
+      username: hashedUsername,
+      password: hashedPassword,
     );
   }
 }
