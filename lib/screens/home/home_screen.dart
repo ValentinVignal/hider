@@ -80,7 +80,7 @@ class HomeContent extends ConsumerWidget {
                     ),
                   );
                 }
-                final child = subItemsModel.whenOrNull<Widget>(
+                return subItemsModel.when<Widget>(
                   error: (_, __) {
                     final theme = Theme.of(context);
                     return Center(
@@ -93,17 +93,16 @@ class HomeContent extends ConsumerWidget {
                   loading: () => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                );
-
-                if (child != null) return child;
-                final subItem =
-                    subItemsModel.value!.toList()[index - (isBig ? 0 : 1)];
-                return Hero(
-                  tag: subItem.id,
-                  child: SubItemWidget(
-                    path: path,
-                    item: subItem,
-                  ),
+                  data: (data) {
+                    final subItem = data.toList()[index - (isBig ? 0 : 1)];
+                    return Hero(
+                      tag: subItem.id,
+                      child: SubItemWidget(
+                        path: path,
+                        item: subItem,
+                      ),
+                    );
+                  },
                 );
               },
             ),
