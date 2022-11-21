@@ -26,8 +26,8 @@ class AuthenticationModel extends ValueNotifier<User?> {
       sha256.convert(utf8.encode(value)).bytes;
 
   String _pN(int n) {
-    final _pN = user.password.substring(0, min(user.password.length, n));
-    return ' ' * (n - _pN.length) + _pN;
+    final pN2 = user.password.substring(0, min(user.password.length, n));
+    return ' ' * (n - pN2.length) + pN2;
   }
 
   Encrypter get _encrypter {

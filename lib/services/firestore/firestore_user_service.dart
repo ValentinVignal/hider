@@ -24,16 +24,16 @@ mixin FirestoreUserService {
     required String username,
     required String password,
   }) async {
-    final _username = AuthenticationModel.hash(username);
-    final _password = AuthenticationModel.hash(password);
+    final hashedUsername = AuthenticationModel.hash(username);
+    final hashedPassword = AuthenticationModel.hash(password);
     final documentReference = await _collection.add({
-      '_0': _username,
-      '_1': _password,
+      '_0': hashedUsername,
+      '_1': hashedPassword,
     });
     return FirestoreUser(
       id: documentReference.id,
-      username: _username,
-      password: _password,
+      username: hashedUsername,
+      password: hashedPassword,
     );
   }
 }

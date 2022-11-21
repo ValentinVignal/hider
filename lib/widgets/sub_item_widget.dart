@@ -30,8 +30,9 @@ class SubItemWidget extends ConsumerWidget {
       trailing: IconButton(
         icon: const Icon(Icons.copy),
         onPressed: () async {
+          final scaffoldMessenger = ScaffoldMessenger.of(context);
           await Clipboard.setData(ClipboardData(text: item.value));
-          ScaffoldMessenger.of(context).showSnackBar(
+          scaffoldMessenger.showSnackBar(
             const SnackBar(content: Text("Copied")),
           );
         },

@@ -18,9 +18,9 @@ mixin FirestoreItemService {
     var documentReference = collection.doc(
       AuthenticationModel.instance.user.id,
     );
-    for (final _path in path) {
+    for (final pathItem in path) {
       documentReference =
-          documentReference.collection(_collectionName).doc(_path);
+          documentReference.collection(_collectionName).doc(pathItem);
     }
     return documentReference;
   }
