@@ -1,0 +1,31 @@
+# Those are publisher names.
+# cSpell:ignore Vignal subosito
+
+name: Tests
+on:
+  - pull_request
+
+jobs:
+  Linter:
+    runs-on: macos-latest
+    name: Linter
+    needs: packages
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+      - run: flutter pub get
+      - name: Analyze dart code
+        uses: ValentinVignal/action-dart-analyze@v0.14
+      - name: Run tests
+        run: flutter test --coverage
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v2
+  spelling:
+    # Verifies there is no spelling errors in the code.
+    runs-on: ubuntu-latest
+    name: Check code spelling
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check spelling
+        uses: streetsidesoftware/cspell-action@v2
