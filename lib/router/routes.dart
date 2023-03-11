@@ -24,7 +24,8 @@ class LoginRoute extends GoRouteData {
   static const path = 'login';
 
   @override
-  Widget build(BuildContext context) => const LoginScreen();
+  Widget build(BuildContext context, GoRouterState state) =>
+      const LoginScreen();
 }
 
 @TypedGoRoute<SignUpRoute>(path: '/${SignUpRoute.path}')
@@ -33,7 +34,8 @@ class SignUpRoute extends GoRouteData {
   static const path = 'sign-up';
 
   @override
-  Widget build(BuildContext context) => const SignUpScreen();
+  Widget build(BuildContext context, GoRouterState state) =>
+      const SignUpScreen();
 }
 
 @TypedGoRoute<HomeRoute>(
@@ -48,7 +50,7 @@ class HomeRoute extends GoRouteData {
   static const path = 'home';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, GoRouterState state) {
     return const HomeScreen();
   }
 }
@@ -63,7 +65,7 @@ class ItemRoute extends GoRouteData {
   static const urlPath = ':path';
 
   @override
-  Widget build(BuildContext context) => HomeScreen(
+  Widget build(BuildContext context, GoRouterState state) => HomeScreen(
         path: HiderPath.fromUri(path),
       );
 }
