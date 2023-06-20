@@ -6,13 +6,13 @@ part of 'routes.dart';
 // GoRouterGenerator
 // **************************************************************************
 
-List<GoRoute> get $appRoutes => [
+List<RouteBase> get $appRoutes => [
       $loginRoute,
       $signUpRoute,
       $homeRoute,
     ];
 
-GoRoute get $loginRoute => GoRouteData.$route(
+RouteBase get $loginRoute => GoRouteData.$route(
       path: '/login',
       factory: $LoginRouteExtension._fromState,
     );
@@ -26,13 +26,13 @@ extension $LoginRouteExtension on LoginRoute {
 
   void go(BuildContext context) => context.go(location);
 
-  void push(BuildContext context) => context.push(location);
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
 }
 
-GoRoute get $signUpRoute => GoRouteData.$route(
+RouteBase get $signUpRoute => GoRouteData.$route(
       path: '/sign-up',
       factory: $SignUpRouteExtension._fromState,
     );
@@ -46,13 +46,13 @@ extension $SignUpRouteExtension on SignUpRoute {
 
   void go(BuildContext context) => context.go(location);
 
-  void push(BuildContext context) => context.push(location);
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
 }
 
-GoRoute get $homeRoute => GoRouteData.$route(
+RouteBase get $homeRoute => GoRouteData.$route(
       path: '/home',
       factory: $HomeRouteExtension._fromState,
       routes: [
@@ -72,7 +72,7 @@ extension $HomeRouteExtension on HomeRoute {
 
   void go(BuildContext context) => context.go(location);
 
-  void push(BuildContext context) => context.push(location);
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
@@ -80,7 +80,7 @@ extension $HomeRouteExtension on HomeRoute {
 
 extension $ItemRouteExtension on ItemRoute {
   static ItemRoute _fromState(GoRouterState state) => ItemRoute(
-        Uri.parse(state.params['path']!),
+        Uri.parse(state.pathParameters['path']!),
       );
 
   String get location => GoRouteData.$location(
@@ -89,7 +89,7 @@ extension $ItemRouteExtension on ItemRoute {
 
   void go(BuildContext context) => context.go(location);
 
-  void push(BuildContext context) => context.push(location);
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
