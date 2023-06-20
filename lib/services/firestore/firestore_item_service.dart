@@ -66,4 +66,9 @@ mixin FirestoreItemService {
         watch(path.subPath(0, index)),
     ]);
   }
+
+  static Future<void> delete(HiderPath path) {
+    final documentReference = _documentReference(path);
+    return documentReference.delete();
+  }
 }

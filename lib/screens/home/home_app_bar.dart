@@ -1,12 +1,16 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hider/services/authentication_model.dart';
 import 'package:hider/services/edit_item_model.dart';
 import 'package:hider/services/item.dart';
 import 'package:hider/services/item_model.dart';
 import 'package:hider/utils/path.dart';
 import 'package:hider/utils/strings.dart';
+
+import '../../services/firestore/firestore_item_service.dart';
+import '../../widgets/confirm_dialog.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar(this.path, {Key? key}) : super(key: key);
@@ -17,12 +21,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: AppBarTitle(path),
       actions: [
-        IconButton(
-          onPressed: () {
-            AuthenticationModel.instance.logout();
-          },
-          icon: const Icon(Icons.logout),
-        )
+        PopupMenu(path),
       ],
     );
   }
@@ -110,6 +109,76 @@ class _AppBarTitleEditState extends ConsumerState<AppBarTitleEdit> {
         hintText: noName,
       ),
       controller: _controller,
+    );
+  }
+}
+
+enum _PopupMenuOption {
+  delete,
+  logout,
+}
+
+class PopupMenu extends ConsumerWidget {
+  const PopupMenu(this.path, {Key? key}) : super(key: key);
+  final HiderPath path;
+
+  Future<void> _onSelected(
+      BuildContext context, WidgetRef ref, _PopupMenuOption option) async {
+    switch (option) {
+      case _PopupMenuOption.delete:
+        final confirm = await showDialog<bool>(
+              context: context,
+              builder: (context) {
+                return const ConfirmDialog(title: 'Delete?');
+              },
+            ) ??
+            false;
+        if (confirm) {
+          await FirestoreItemService.delete(path);
+          if (context.mounted) {
+            GoRouter.of(context).pop();
+          }
+        }
+        break;
+      case _PopupMenuOption.logout:
+        final confirm = await showDialog<bool>(
+              context: context,
+              builder: (context) {
+                return const ConfirmDialog(title: 'Logout?');
+              },
+            ) ??
+            false;
+        if (confirm) {
+          AuthenticationModel.instance.logout();
+        }
+        break;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isEditing = ref.watch(editItemProvider(path));
+    return PopupMenuButton<_PopupMenuOption>(
+      onSelected: (option) => _onSelected(context, ref, option),
+      itemBuilder: (context) {
+        return [
+          if (isEditing && path.isNotEmpty)
+            const PopupMenuItem(
+              value: _PopupMenuOption.delete,
+              child: ListTile(
+                leading: Icon(Icons.delete),
+                title: Text('Delete'),
+              ),
+            ),
+          const PopupMenuItem(
+            value: _PopupMenuOption.logout,
+            child: ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Logout'),
+            ),
+          ),
+        ];
+      },
     );
   }
 }
