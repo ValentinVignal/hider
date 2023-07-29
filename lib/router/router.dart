@@ -9,7 +9,7 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: $appRoutes,
     refreshListenable: AuthenticationModel.instance,
     redirect: (context, state) {
-      final uri = Uri.parse(state.location);
+      final uri = state.uri;
       if (uri.pathSegments.isNotEmpty) {
         if (AuthenticationModel.instance.value == null) {
           if (!unauthenticatedRoutes.contains(uri.pathSegments.first)) {

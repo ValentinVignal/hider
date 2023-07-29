@@ -1,3 +1,7 @@
+## Next
+
+- Upgrade dependencies
+
 ## 0.1.0
 
 - Upgrades to flutter 3.10.5.
