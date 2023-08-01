@@ -1,3 +1,7 @@
+## Next
+
+- Fixes a bug where sub items were not exported.
+
 ## 0.2.0
 
 - Upgrade dependencies
