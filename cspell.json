@@ -1,10 +1,15 @@
 {
+    "ignorePaths": [
+        "**/*.freezed.dart",
+        "pubspec.yaml"
+    ],
     "words": [
         "codecov",
         "cupertino",
         "Encrypter",
         "firestore",
         "mocktail",
+        "pubspec",
         "riverpod",
         "serializers",
         "Vignal"
