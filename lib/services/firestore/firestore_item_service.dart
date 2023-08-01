@@ -86,7 +86,7 @@ mixin FirestoreItemService {
 
   static Future<void> _getAllRecursive(HiderPath path, Json json) async {
     final item = Item.fromDocumentSnapshot(
-      await _documentReference(const HiderPath()).get(),
+      await _documentReference(path).get(),
     );
     json.addAll(item.toJson());
     final subItems =
