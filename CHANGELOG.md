@@ -1,4 +1,4 @@
-## Next
+## 0.2.1
 
 - Fixes a bug where sub items were not exported.
 
