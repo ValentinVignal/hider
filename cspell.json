@@ -12,6 +12,7 @@
         "pubspec",
         "riverpod",
         "serializers",
-        "Vignal"
+        "Vignal",
+        "wakatime"
     ]
 }
