@@ -76,10 +76,6 @@ mixin FirestoreItemService {
   static Future<Json> getAll() async {
     final json = <String, dynamic>{};
     await _getAllRecursive(const HiderPath(), json);
-    final rootItem = Item.fromDocumentSnapshot(
-      await _documentReference(const HiderPath()).get(),
-    );
-    json.addAll(rootItem.toJson());
 
     return json;
   }
@@ -94,11 +90,13 @@ mixin FirestoreItemService {
     if (subItems.docs.isNotEmpty) {
       final subItemsJson = <Map<String, dynamic>>[];
       json[_collectionName] = subItemsJson;
+      final futures = <Future>[];
       for (final subItem in subItems.docs) {
         final subJson = <String, dynamic>{};
         subItemsJson.add(subJson);
-        await _getAllRecursive(path.add(subItem.id), subJson);
+        futures.add(_getAllRecursive(path.add(subItem.id), subJson));
       }
+      await Future.wait(futures);
     }
   }
 }
