@@ -1,20 +1,26 @@
 import 'dart:io' as io;
-import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 /// Save the file locally in the "download" directory.
 Future<void> saveFileLocally(String fileName, Uint8List content) async {
   late final io.Directory directory;
-  if (io.Platform.isMacOS) {
-    directory = (await path_provider.getDownloadsDirectory())!;
-  } else if (io.Platform.isAndroid) {
-    directory = (await path_provider.getExternalStorageDirectory())!;
-  } else if (io.Platform.isIOS) {
-    directory = await path_provider.getApplicationSupportDirectory();
-  } else {
-    directory = await path_provider.getApplicationDocumentsDirectory();
+  switch (defaultTargetPlatform) {
+    case TargetPlatform.android:
+      directory = (await path_provider.getExternalStorageDirectory())!;
+      break;
+    case TargetPlatform.iOS:
+      directory = await path_provider.getApplicationSupportDirectory();
+      break;
+    case TargetPlatform.linux:
+    case TargetPlatform.macOS:
+    case TargetPlatform.windows:
+      directory = (await path_provider.getDownloadsDirectory())!;
+      break;
+    default:
+      await path_provider.getApplicationDocumentsDirectory();
   }
   final newFile = io.File(_getUniquePath(path.join(directory.path, fileName)));
   await newFile.writeAsBytes(content);

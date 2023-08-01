@@ -171,7 +171,7 @@ class PopupMenu extends ConsumerWidget {
       const SnackBar(content: Text('Exporting...')),
     );
     final data = await FirestoreItemService.getAll();
-    saveFileLocally(
+    await saveFileLocally(
       'hider.json',
       Uint8List.fromList(jsonEncode(data).codeUnits),
     );
