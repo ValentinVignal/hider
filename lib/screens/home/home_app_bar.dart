@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,6 +9,7 @@ import 'package:hider/services/authentication_model.dart';
 import 'package:hider/services/edit_item_model.dart';
 import 'package:hider/services/item.dart';
 import 'package:hider/services/item_model.dart';
+import 'package:hider/utils/download_file/download_file.dart';
 import 'package:hider/utils/path.dart';
 import 'package:hider/utils/strings.dart';
 
@@ -114,6 +118,7 @@ class _AppBarTitleEditState extends ConsumerState<AppBarTitleEdit> {
 }
 
 enum _PopupMenuOption {
+  export,
   delete,
   logout,
 }
@@ -123,8 +128,14 @@ class PopupMenu extends ConsumerWidget {
   final HiderPath path;
 
   Future<void> _onSelected(
-      BuildContext context, WidgetRef ref, _PopupMenuOption option) async {
+    BuildContext context,
+    WidgetRef ref,
+    _PopupMenuOption option,
+  ) async {
     switch (option) {
+      case _PopupMenuOption.export:
+        _export(context);
+        break;
       case _PopupMenuOption.delete:
         final confirm = await showDialog<bool>(
               context: context,
@@ -155,6 +166,22 @@ class PopupMenu extends ConsumerWidget {
     }
   }
 
+  Future<void> _export(BuildContext context) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Exporting...')),
+    );
+    final data = await FirestoreItemService.getAll();
+    saveFileLocally(
+      'hider.json',
+      Uint8List.fromList(jsonEncode(data).codeUnits),
+    );
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Exported')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isEditing = ref.watch(editItemProvider(path));
@@ -162,6 +189,13 @@ class PopupMenu extends ConsumerWidget {
       onSelected: (option) => _onSelected(context, ref, option),
       itemBuilder: (context) {
         return [
+          const PopupMenuItem(
+            value: _PopupMenuOption.export,
+            child: ListTile(
+              leading: Icon(Icons.file_download),
+              title: Text('Export'),
+            ),
+          ),
           if (isEditing && path.isNotEmpty)
             const PopupMenuItem(
               value: _PopupMenuOption.delete,

@@ -6,6 +6,7 @@ import 'package:hider/services/authentication_model.dart';
 import 'package:hider/services/item.dart';
 import 'package:hider/utils/path.dart';
 
+import '../../utils/json.dart';
 import 'instance.dart';
 
 mixin FirestoreItemService {
@@ -57,7 +58,7 @@ mixin FirestoreItemService {
   /// Saved the item with the path [path].
   static Future<void> save(HiderPath path, Item item) async {
     final documentReference = _documentReference(path);
-    await documentReference.set(item.toJson());
+    await documentReference.set(item.toEncryptedJson());
   }
 
   static Stream<List<Item>> watchAllFromPath(HiderPath path) {
@@ -70,5 +71,34 @@ mixin FirestoreItemService {
   static Future<void> delete(HiderPath path) {
     final documentReference = _documentReference(path);
     return documentReference.delete();
+  }
+
+  static Future<Json> getAll() async {
+    final json = <String, dynamic>{};
+    await _getAllRecursive(const HiderPath(), json);
+    final rootItem = Item.fromDocumentSnapshot(
+      await _documentReference(const HiderPath()).get(),
+    );
+    json.addAll(rootItem.toJson());
+
+    return json;
+  }
+
+  static Future<void> _getAllRecursive(HiderPath path, Json json) async {
+    final item = Item.fromDocumentSnapshot(
+      await _documentReference(const HiderPath()).get(),
+    );
+    json.addAll(item.toJson());
+    final subItems =
+        await _documentReference(path).collection(_collectionName).get();
+    if (subItems.docs.isNotEmpty) {
+      final subItemsJson = <Map<String, dynamic>>[];
+      json[_collectionName] = subItemsJson;
+      for (final subItem in subItems.docs) {
+        final subJson = <String, dynamic>{};
+        subItemsJson.add(subJson);
+        await _getAllRecursive(path.add(subItem.id), subJson);
+      }
+    }
   }
 }
