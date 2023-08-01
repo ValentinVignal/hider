@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Item _$ItemFromJson(Map<String, dynamic> json) {
+  return _Item.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Item {
   String get id => throw _privateConstructorUsedError;
@@ -21,6 +25,7 @@ mixin _$Item {
   String get name => throw _privateConstructorUsedError;
   String get value => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ItemCopyWith<Item> get copyWith => throw _privateConstructorUsedError;
 }
@@ -117,13 +122,15 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Item implements _Item {
   const _$_Item(
       {required this.id,
       required this.description,
       required this.name,
       required this.value});
+
+  factory _$_Item.fromJson(Map<String, dynamic> json) => _$$_ItemFromJson(json);
 
   @override
   final String id;
@@ -151,6 +158,7 @@ class _$_Item implements _Item {
             (identical(other.value, value) || other.value == value));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, description, name, value);
 
@@ -159,6 +167,13 @@ class _$_Item implements _Item {
   @pragma('vm:prefer-inline')
   _$$_ItemCopyWith<_$_Item> get copyWith =>
       __$$_ItemCopyWithImpl<_$_Item>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ItemToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Item implements Item {
@@ -167,6 +182,8 @@ abstract class _Item implements Item {
       required final String description,
       required final String name,
       required final String value}) = _$_Item;
+
+  factory _Item.fromJson(Map<String, dynamic> json) = _$_Item.fromJson;
 
   @override
   String get id;

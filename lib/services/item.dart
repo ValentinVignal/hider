@@ -4,8 +4,7 @@ import 'package:hider/services/authentication_model.dart';
 import 'package:hider/utils/json.dart';
 
 part 'item.freezed.dart';
-
-var a = 1;
+part 'item.g.dart';
 
 @freezed
 class Item with _$Item {
@@ -34,10 +33,12 @@ class Item with _$Item {
         name: '',
         value: '',
       );
+
+  factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 }
 
 extension ExtensionItem on Item {
-  Json toJson() {
+  Json toEncryptedJson() {
     return {
       if (value.isNotEmpty)
         'value': AuthenticationModel.instance.encrypt(value),

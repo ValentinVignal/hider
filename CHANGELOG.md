@@ -1,6 +1,7 @@
 ## Next
 
 - Upgrade dependencies
+- Adds an export button.
 
 ## 0.1.0
 

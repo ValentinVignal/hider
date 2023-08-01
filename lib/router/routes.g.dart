@@ -30,6 +30,8 @@ extension $LoginRouteExtension on LoginRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 RouteBase get $signUpRoute => GoRouteData.$route(
@@ -50,6 +52,8 @@ extension $SignUpRouteExtension on SignUpRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 RouteBase get $homeRoute => GoRouteData.$route(
@@ -76,6 +80,8 @@ extension $HomeRouteExtension on HomeRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
 
 extension $ItemRouteExtension on ItemRoute {
@@ -93,4 +99,6 @@ extension $ItemRouteExtension on ItemRoute {
 
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
 }
