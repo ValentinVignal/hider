@@ -1,4 +1,4 @@
-## Next
+## 0.2.0
 
 - Upgrade dependencies
 - Adds an export button.
