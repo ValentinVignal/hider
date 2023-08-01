@@ -117,7 +117,8 @@ class _AppBarTitleEditState extends ConsumerState<AppBarTitleEdit> {
   }
 }
 
-enum _PopupMenuOption {
+@visibleForTesting
+enum PopupMenuOption {
   export,
   delete,
   logout,
@@ -130,13 +131,13 @@ class PopupMenu extends ConsumerWidget {
   Future<void> _onSelected(
     BuildContext context,
     WidgetRef ref,
-    _PopupMenuOption option,
+    PopupMenuOption option,
   ) async {
     switch (option) {
-      case _PopupMenuOption.export:
+      case PopupMenuOption.export:
         _export(context);
         break;
-      case _PopupMenuOption.delete:
+      case PopupMenuOption.delete:
         final confirm = await showDialog<bool>(
               context: context,
               builder: (context) {
@@ -151,7 +152,7 @@ class PopupMenu extends ConsumerWidget {
           }
         }
         break;
-      case _PopupMenuOption.logout:
+      case PopupMenuOption.logout:
         final confirm = await showDialog<bool>(
               context: context,
               builder: (context) {
@@ -185,12 +186,12 @@ class PopupMenu extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isEditing = ref.watch(editItemProvider(path));
-    return PopupMenuButton<_PopupMenuOption>(
+    return PopupMenuButton<PopupMenuOption>(
       onSelected: (option) => _onSelected(context, ref, option),
       itemBuilder: (context) {
         return [
           const PopupMenuItem(
-            value: _PopupMenuOption.export,
+            value: PopupMenuOption.export,
             child: ListTile(
               leading: Icon(Icons.file_download),
               title: Text('Export'),
@@ -198,14 +199,14 @@ class PopupMenu extends ConsumerWidget {
           ),
           if (isEditing && path.isNotEmpty)
             const PopupMenuItem(
-              value: _PopupMenuOption.delete,
+              value: PopupMenuOption.delete,
               child: ListTile(
                 leading: Icon(Icons.delete),
                 title: Text('Delete'),
               ),
             ),
           const PopupMenuItem(
-            value: _PopupMenuOption.logout,
+            value: PopupMenuOption.logout,
             child: ListTile(
               leading: Icon(Icons.logout),
               title: Text('Logout'),
