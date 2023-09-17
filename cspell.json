@@ -1,18 +1,20 @@
 {
-    "ignorePaths": [
-        "**/*.freezed.dart",
-        "pubspec.yaml"
-    ],
-    "words": [
-        "codecov",
-        "cupertino",
-        "Encrypter",
-        "firestore",
-        "mocktail",
-        "pubspec",
-        "riverpod",
-        "serializers",
-        "Vignal",
-        "wakatime"
-    ]
+  "ignorePaths": [
+    "**/*.freezed.dart",
+    "pubspec.yaml",
+    "macos/Runner.xcodeproj/**",
+    "cspell.json"
+  ],
+  "words": [
+    "codecov",
+    "cupertino",
+    "Encrypter",
+    "firestore",
+    "mocktail",
+    "pubspec",
+    "riverpod",
+    "serializers",
+    "Vignal",
+    "wakatime"
+  ]
 }
