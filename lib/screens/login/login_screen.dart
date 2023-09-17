@@ -1,14 +1,15 @@
 import 'dart:convert';
 
+import 'package:animated_collection/animated_collection.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hider/router/routes.dart';
-import 'package:hider/services/authentication_model.dart';
-import 'package:hider/services/firestore/firestore_user_service.dart';
-import 'package:hider/services/user.dart';
-import 'package:hider/widgets/animated_visibility.dart';
+
+import '../../router/routes.dart';
+import '../../services/authentication_model.dart';
+import '../../services/firestore/firestore_user_service.dart';
+import '../../services/user.dart';
 
 /// The login screen.
 class LoginScreen extends StatelessWidget {
