@@ -1,3 +1,7 @@
+## NEXT 
+
+- Upgrade dependencies.
+
 ## 0.2.2
 
 - Upgrades to Flutter 3.13.4.
