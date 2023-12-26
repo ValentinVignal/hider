@@ -1,6 +1,10 @@
+## NEXT
+
+- Upgrades dependencies.
+
 ## 0.2.4
 
-- Upgrade dependencies.
+- Upgrades dependencies.
 
 ## 0.2.3
 
