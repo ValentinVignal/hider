@@ -17,7 +17,7 @@ import '../../services/firestore/firestore_item_service.dart';
 import '../../widgets/confirm_dialog.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const HomeAppBar(this.path, {Key? key}) : super(key: key);
+  const HomeAppBar(this.path, {super.key});
   final HiderPath path;
 
   @override
@@ -35,7 +35,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class AppBarTitle extends ConsumerWidget {
-  const AppBarTitle(this.path, {Key? key}) : super(key: key);
+  const AppBarTitle(this.path, {super.key});
 
   final HiderPath path;
 
@@ -58,7 +58,7 @@ class AppBarTitle extends ConsumerWidget {
 }
 
 class AppBarTitleView extends ConsumerWidget {
-  const AppBarTitleView(this.path, {Key? key}) : super(key: key);
+  const AppBarTitleView(this.path, {super.key});
 
   final HiderPath path;
 
@@ -78,7 +78,7 @@ class AppBarTitleView extends ConsumerWidget {
 }
 
 class AppBarTitleEdit extends ConsumerStatefulWidget {
-  const AppBarTitleEdit(this.path, {Key? key}) : super(key: key);
+  const AppBarTitleEdit(this.path, {super.key});
 
   final HiderPath path;
 
@@ -125,7 +125,7 @@ enum PopupMenuOption {
 }
 
 class PopupMenu extends ConsumerWidget {
-  const PopupMenu(this.path, {Key? key}) : super(key: key);
+  const PopupMenu(this.path, {super.key});
   final HiderPath path;
 
   Future<void> _onSelected(

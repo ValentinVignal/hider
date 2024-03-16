@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class AnimatedRotationSwitcher extends StatelessWidget {
   const AnimatedRotationSwitcher({
     required this.child,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   /// The child to display when [visible] is `true`.
   final Widget child;

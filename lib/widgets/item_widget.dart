@@ -10,20 +10,21 @@ import 'package:markdown/markdown.dart' as md;
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ItemWidget extends ConsumerWidget {
-  const ItemWidget(this.path, {Key? key}) : super(key: key);
+  const ItemWidget(this.path, {super.key});
 
   final HiderPath path;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: !ref.watch(editItemProvider(path)),
+      onPopInvoked: (didPop) async {
+        if (didPop) return;
         final editItemModel = ref.read(editItemProvider(path).notifier);
         if (editItemModel.state) {
           editItemModel.state = !editItemModel.state;
-          return false;
+          return;
         }
-        return true;
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +39,7 @@ class ItemWidget extends ConsumerWidget {
 }
 
 class ItemValueWidget extends ConsumerStatefulWidget {
-  const ItemValueWidget(this.path, {Key? key}) : super(key: key);
+  const ItemValueWidget(this.path, {super.key});
   final HiderPath path;
 
   @override
@@ -134,7 +135,7 @@ class _ItemValueWidgetState extends ConsumerState<ItemValueWidget> {
 }
 
 class ItemDescriptionWidget extends StatelessWidget {
-  const ItemDescriptionWidget(this.path, {Key? key}) : super(key: key);
+  const ItemDescriptionWidget(this.path, {super.key});
 
   final HiderPath path;
 
@@ -163,7 +164,7 @@ class ItemDescriptionWidget extends StatelessWidget {
 }
 
 class ItemDescriptionTextWidget extends ConsumerStatefulWidget {
-  const ItemDescriptionTextWidget(this.path, {Key? key}) : super(key: key);
+  const ItemDescriptionTextWidget(this.path, {super.key});
 
   final HiderPath path;
 

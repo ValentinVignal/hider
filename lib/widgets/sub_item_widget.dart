@@ -11,8 +11,8 @@ class SubItemWidget extends ConsumerWidget {
   const SubItemWidget({
     required this.path,
     required this.item,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final HiderPath path;
   final Item item;
