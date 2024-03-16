@@ -10,7 +10,7 @@ import '../../services/user.dart';
 
 /// The sign up screen.
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class SignUpScreen extends StatelessWidget {
 
 /// The form displayed in the login screen.
 class _SignUpForm extends StatefulWidget {
-  const _SignUpForm({Key? key}) : super(key: key);
+  const _SignUpForm();
 
   @override
   State<_SignUpForm> createState() => _SignUpFormState();
@@ -220,7 +220,7 @@ class _SignUpFormState extends State<_SignUpForm> {
 }
 
 class _ConfirmationDialog extends StatelessWidget {
-  const _ConfirmationDialog({Key? key}) : super(key: key);
+  const _ConfirmationDialog();
 
   @override
   Widget build(BuildContext context) {

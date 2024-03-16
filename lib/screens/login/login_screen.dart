@@ -13,7 +13,7 @@ import '../../services/user.dart';
 
 /// The login screen.
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
 
 /// The form displayed in the login screen.
 class _LoginForm extends StatefulWidget {
-  const _LoginForm({Key? key}) : super(key: key);
+  const _LoginForm();
 
   @override
   State<_LoginForm> createState() => _LoginFormState();

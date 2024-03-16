@@ -7,7 +7,7 @@ import 'package:hider/utils/path.dart';
 import 'package:hider/widgets/animated_rotation_switcher.dart';
 
 class FirstFAB extends ConsumerWidget {
-  const FirstFAB(this.path, {Key? key}) : super(key: key);
+  const FirstFAB(this.path, {super.key});
 
   final HiderPath path;
 

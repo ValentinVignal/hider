@@ -15,8 +15,8 @@ import 'package:hider/widgets/sub_item_widget.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
     this.path = const HiderPath(),
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final HiderPath path;
 
@@ -41,8 +41,8 @@ class HomeScreen extends StatelessWidget {
 class HomeContent extends ConsumerWidget {
   const HomeContent({
     required this.path,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final HiderPath path;
 

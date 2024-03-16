@@ -4,8 +4,8 @@ class AnimatedScaleSwitcher extends StatelessWidget {
   const AnimatedScaleSwitcher({
     required this.child,
     this.axis = Axis.vertical,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final Widget child;
 

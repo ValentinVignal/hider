@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Hider extends StatefulWidget {
-  const Hider({required this.child, Key? key}) : super(key: key);
+  const Hider({required this.child, super.key});
 
   /// Child widget
   final Widget child;
