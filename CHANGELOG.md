@@ -1,5 +1,9 @@
 ## 0.2.5
 
+- Upgrades to flutter 3.19.3.
+
+## 0.2.5
+
 - Upgrades dependencies.
 
 ## 0.2.4
@@ -13,7 +17,7 @@
 ## 0.2.2
 
 - Upgrades to Flutter 3.13.4.
-= Adds `animated_collection`.
+- Adds `animated_collection`.
 
 ## 0.2.1
 
