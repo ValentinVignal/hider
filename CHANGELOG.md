@@ -1,4 +1,8 @@
-## 0.2.5
+## NEXT
+
+- Upgrade `animated_collection` to `1.0.0`.
+
+## 0.2.6
 
 - Upgrades to flutter 3.19.3.
 
