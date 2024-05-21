@@ -36,8 +36,6 @@ void main() {
     );
     expect(find.text('Home'), findsOneWidget);
     await tester.pumpAndSettle();
-    await tester.pumpAndSettle();
-    await tester.pumpAndSettle();
     expect(find.text('itemValue'), findsOneWidget);
     expect(find.text('itemDescription'), findsOneWidget);
     await expectLater(

@@ -18,7 +18,7 @@ jobs:
         uses: subosito/flutter-action@v2
       - run: flutter pub get
       - name: Run tests
-        run: flutter test --coverage
+        run: flutter test --coverage --dart-define="flexible-goldens=true"
       - name: Upload to Codecov
         uses: codecov/codecov-action@v4
         with:

@@ -10,6 +10,7 @@
     "cupertino",
     "Encrypter",
     "firestore",
+    "goldens",
     "mocktail",
     "pubspec",
     "riverpod",
