@@ -1,6 +1,7 @@
-## NEXT
+## 0.2.7
 
-- Upgrade `animated_collection` to `1.0.0`.
+- Upgrades `animated_collection` to `1.0.0`.
+- Upgrades to flutter 3.22.1.
 
 ## 0.2.6
 
