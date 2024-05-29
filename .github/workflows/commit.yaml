@@ -13,11 +13,14 @@ jobs:
     runs-on: macos-latest
     name: Tests
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
       - run: flutter pub get
       - name: Run tests
-        run: flutter test --coverage
+        run: flutter test --coverage --dart-define="flexible-goldens=true"
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v4
+        with:
+          flags: animated_collection,imperative_page_routes
+          token: ${{ secrets.CODECOV_TOKEN }}

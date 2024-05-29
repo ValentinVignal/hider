@@ -10,21 +10,24 @@ jobs:
     runs-on: macos-latest
     name: Linter
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
       - run: flutter pub get
       - name: Analyze dart code
-        uses: ValentinVignal/action-dart-analyze@v0.14
+        uses: ValentinVignal/action-dart-analyze@v0.17
       - name: Run tests
-        run: flutter test --coverage
+        run: flutter test --coverage --dart-define="flexible-goldens=true"
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v4
+        with:
+          flags: animated_collection,imperative_page_routes
+          token: ${{ secrets.CODECOV_TOKEN }}
   spelling:
     # Verifies there is no spelling errors in the code.
     runs-on: ubuntu-latest
     name: Check code spelling
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Check spelling
-        uses: streetsidesoftware/cspell-action@v2
+        uses: streetsidesoftware/cspell-action@v6
