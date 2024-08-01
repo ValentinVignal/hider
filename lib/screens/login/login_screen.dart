@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:animated_collection/animated_collection.dart';
 import 'package:crypto/crypto.dart';
@@ -21,29 +22,41 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: [
-            Center(
-              child: Text(
-                'Hider',
-                style: theme.textTheme.displayLarge,
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: _LoginForm(),
-            ),
-            const SizedBox(height: 16),
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  GoRouter.of(context).go(const SignUpRoute().location);
-                },
-                child: const Text('Sign up'),
-              ),
-            ),
-          ],
+        child: Center(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SizedBox(
+                width: min(
+                  max(2 * constraints.maxWidth / 5, 600),
+                  constraints.maxWidth,
+                ),
+                child: ListView(
+                  children: [
+                    Center(
+                      child: Text(
+                        'Hider',
+                        style: theme.textTheme.displayLarge,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: _LoginForm(),
+                    ),
+                    const SizedBox(height: 16),
+                    Center(
+                      child: TextButton(
+                        onPressed: () {
+                          GoRouter.of(context).go(const SignUpRoute().location);
+                        },
+                        child: const Text('Sign up'),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

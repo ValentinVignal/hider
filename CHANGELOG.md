@@ -1,3 +1,8 @@
+## NEXT
+
+- Upgrade dependencies.
+- Centers the login and sign up screens.
+
 ## 0.2.7
 
 - Upgrades `animated_collection` to `1.0.0`.

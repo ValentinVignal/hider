@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animated_collection/animated_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -18,29 +20,41 @@ class SignUpScreen extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: [
-            Center(
-              child: Text(
-                'Hider',
-                style: theme.textTheme.displayLarge,
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: _SignUpForm(),
-            ),
-            const SizedBox(height: 16),
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  GoRouter.of(context).go(const LoginRoute().location);
-                },
-                child: const Text('Login'),
-              ),
-            ),
-          ],
+        child: Center(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SizedBox(
+                width: min(
+                  max(2 * constraints.maxWidth / 5, 600),
+                  constraints.maxWidth,
+                ),
+                child: ListView(
+                  children: [
+                    Center(
+                      child: Text(
+                        'Hider',
+                        style: theme.textTheme.displayLarge,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: _SignUpForm(),
+                    ),
+                    const SizedBox(height: 16),
+                    Center(
+                      child: TextButton(
+                        onPressed: () {
+                          GoRouter.of(context).go(const LoginRoute().location);
+                        },
+                        child: const Text('Login'),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
