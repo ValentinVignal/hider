@@ -82,6 +82,12 @@ class _LoginFormState extends State<_LoginForm> {
   }
 
   Future<void> _onLogin() async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+            'I will delete all the data soon. Contact me if you are using this app.'),
+      ),
+    );
     setState(() {
       _error = '';
     });
