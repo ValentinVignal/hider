@@ -2,6 +2,7 @@
 
 - Upgrade dependencies.
 - Centers the login and sign up screens.
+- Adds warning message.
 
 ## 0.2.7
 
