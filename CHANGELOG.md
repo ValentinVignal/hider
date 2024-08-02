@@ -1,4 +1,4 @@
-## NEXT
+## 0.3.0
 
 - Upgrade dependencies.
 - Centers the login and sign up screens.
