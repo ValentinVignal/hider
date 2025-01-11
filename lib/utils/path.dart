@@ -1,7 +1,9 @@
 import 'package:equatable/equatable.dart';
 
 /// An object that describe the location of the user its items.
-class HiderPath extends Iterable<String> with EquatableMixin, Iterator<String> {
+class HiderPath extends Iterable<String>
+    with EquatableMixin
+    implements Iterator<String> {
   const HiderPath([this._path = const []]);
 
   factory HiderPath.fromUri(Uri uri) {
