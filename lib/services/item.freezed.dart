@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,208 +10,148 @@ part of 'item.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Item _$ItemFromJson(Map<String, dynamic> json) {
-  return _Item.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Item {
-  String get id => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String get value => throw _privateConstructorUsedError;
+
+ String get id; String get description; String get name; String get value;
+/// Create a copy of Item
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ItemCopyWith<Item> get copyWith => _$ItemCopyWithImpl<Item>(this as Item, _$identity);
 
   /// Serializes this Item to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson();
 
-  /// Create a copy of Item
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $ItemCopyWith<Item> get copyWith => throw _privateConstructorUsedError;
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Item&&(identical(other.id, id) || other.id == id)&&(identical(other.description, description) || other.description == description)&&(identical(other.name, name) || other.name == name)&&(identical(other.value, value) || other.value == value));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,description,name,value);
+
+@override
+String toString() {
+  return 'Item(id: $id, description: $description, name: $name, value: $value)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $ItemCopyWith<$Res> {
-  factory $ItemCopyWith(Item value, $Res Function(Item) then) =
-      _$ItemCopyWithImpl<$Res, Item>;
-  @useResult
-  $Res call({String id, String description, String name, String value});
-}
+abstract mixin class $ItemCopyWith<$Res>  {
+  factory $ItemCopyWith(Item value, $Res Function(Item) _then) = _$ItemCopyWithImpl;
+@useResult
+$Res call({
+ String id, String description, String name, String value
+});
 
+
+
+
+}
 /// @nodoc
-class _$ItemCopyWithImpl<$Res, $Val extends Item>
+class _$ItemCopyWithImpl<$Res>
     implements $ItemCopyWith<$Res> {
-  _$ItemCopyWithImpl(this._value, this._then);
+  _$ItemCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final Item _self;
+  final $Res Function(Item) _then;
 
-  /// Create a copy of Item
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? description = null,
-    Object? name = null,
-    Object? value = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
+/// Create a copy of Item
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? description = null,Object? name = null,Object? value = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
 }
 
-/// @nodoc
-abstract class _$$ItemImplCopyWith<$Res> implements $ItemCopyWith<$Res> {
-  factory _$$ItemImplCopyWith(
-          _$ItemImpl value, $Res Function(_$ItemImpl) then) =
-      __$$ItemImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String id, String description, String name, String value});
 }
 
-/// @nodoc
-class __$$ItemImplCopyWithImpl<$Res>
-    extends _$ItemCopyWithImpl<$Res, _$ItemImpl>
-    implements _$$ItemImplCopyWith<$Res> {
-  __$$ItemImplCopyWithImpl(_$ItemImpl _value, $Res Function(_$ItemImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Item
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? description = null,
-    Object? name = null,
-    Object? value = null,
-  }) {
-    return _then(_$ItemImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
 
 /// @nodoc
 @JsonSerializable()
-class _$ItemImpl implements _Item {
-  const _$ItemImpl(
-      {required this.id,
-      required this.description,
-      required this.name,
-      required this.value});
 
-  factory _$ItemImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ItemImplFromJson(json);
+class _Item implements Item {
+  const _Item({required this.id, required this.description, required this.name, required this.value});
+  factory _Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 
-  @override
-  final String id;
-  @override
-  final String description;
-  @override
-  final String name;
-  @override
-  final String value;
+@override final  String id;
+@override final  String description;
+@override final  String name;
+@override final  String value;
 
-  @override
-  String toString() {
-    return 'Item(id: $id, description: $description, name: $name, value: $value)';
-  }
+/// Create a copy of Item
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ItemCopyWith<_Item> get copyWith => __$ItemCopyWithImpl<_Item>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$ItemImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.value, value) || other.value == value));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, description, name, value);
-
-  /// Create a copy of Item
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$ItemImplCopyWith<_$ItemImpl> get copyWith =>
-      __$$ItemImplCopyWithImpl<_$ItemImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ItemImplToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$ItemToJson(this, );
 }
 
-abstract class _Item implements Item {
-  const factory _Item(
-      {required final String id,
-      required final String description,
-      required final String name,
-      required final String value}) = _$ItemImpl;
-
-  factory _Item.fromJson(Map<String, dynamic> json) = _$ItemImpl.fromJson;
-
-  @override
-  String get id;
-  @override
-  String get description;
-  @override
-  String get name;
-  @override
-  String get value;
-
-  /// Create a copy of Item
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ItemImplCopyWith<_$ItemImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Item&&(identical(other.id, id) || other.id == id)&&(identical(other.description, description) || other.description == description)&&(identical(other.name, name) || other.name == name)&&(identical(other.value, value) || other.value == value));
 }
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,description,name,value);
+
+@override
+String toString() {
+  return 'Item(id: $id, description: $description, name: $name, value: $value)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
+  factory _$ItemCopyWith(_Item value, $Res Function(_Item) _then) = __$ItemCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, String description, String name, String value
+});
+
+
+
+
+}
+/// @nodoc
+class __$ItemCopyWithImpl<$Res>
+    implements _$ItemCopyWith<$Res> {
+  __$ItemCopyWithImpl(this._self, this._then);
+
+  final _Item _self;
+  final $Res Function(_Item) _then;
+
+/// Create a copy of Item
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? description = null,Object? name = null,Object? value = null,}) {
+  return _then(_Item(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+// dart format on

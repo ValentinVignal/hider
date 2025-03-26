@@ -7,7 +7,7 @@ part 'item.freezed.dart';
 part 'item.g.dart';
 
 @freezed
-class Item with _$Item {
+sealed class Item with _$Item {
   const factory Item({
     required String id,
     required String description,
