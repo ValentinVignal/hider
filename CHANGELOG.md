@@ -1,4 +1,4 @@
-## NEXT
+## 0.4.0
 
 - Removes warning message on login.
 - Adds a delay of 500ms when the login fails.
