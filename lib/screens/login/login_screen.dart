@@ -33,10 +33,7 @@ class LoginScreen extends StatelessWidget {
                 child: ListView(
                   children: [
                     Center(
-                      child: Text(
-                        'Hider',
-                        style: theme.textTheme.displayLarge,
-                      ),
+                      child: Text('Hider', style: theme.textTheme.displayLarge),
                     ),
                     const SizedBox(height: 16),
                     const Padding(
@@ -82,17 +79,13 @@ class _LoginFormState extends State<_LoginForm> {
   }
 
   Future<void> _onLogin() async {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-            'I will delete all the data soon. Contact me if you are using this app.'),
-      ),
-    );
     setState(() {
       _error = '';
     });
     final user = await FirestoreUserService.getByUsername(_username);
     if (user == null) {
+      // Simulate a delay to prevent timing attacks.
+      await Future.delayed(const Duration(milliseconds: 500));
       setState(() {
         _error = 'Incorrect username or password';
       });
@@ -100,6 +93,8 @@ class _LoginFormState extends State<_LoginForm> {
     }
     final hash = sha256.convert(utf8.encode(_password)).bytes;
     if (!listEquals(user.password, hash)) {
+      // Simulate a delay to prevent timing attacks.
+      await Future.delayed(const Duration(milliseconds: 500));
       setState(() {
         _error = 'Incorrect username or password';
       });
@@ -118,9 +113,7 @@ class _LoginFormState extends State<_LoginForm> {
       child: Column(
         children: [
           TextFormField(
-            decoration: const InputDecoration(
-              labelText: 'Username',
-            ),
+            decoration: const InputDecoration(labelText: 'Username'),
             initialValue: _username,
             onChanged: (value) {
               setState(() {
@@ -169,9 +162,7 @@ class _LoginFormState extends State<_LoginForm> {
             child: Center(
               child: Text(
                 _error,
-                style: TextStyle(
-                  color: theme.colorScheme.error,
-                ),
+                style: TextStyle(color: theme.colorScheme.error),
               ),
             ),
           ),
