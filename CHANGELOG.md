@@ -1,6 +1,11 @@
-# 0.3.1
+## NEXT
 
-- Upgrade to Flutter 3.29.3.
+- Removes warning message on login.
+- Adds a delay of 500ms when the login fails.
+
+## 0.3.1
+
+- Upgrade to Flutter 3.29.2.
 - Upgrade dependencies.
 
 ## 0.3.0
