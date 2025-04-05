@@ -3,7 +3,8 @@
     "**/*.freezed.dart",
     "pubspec.yaml",
     "macos/Runner.xcodeproj/**",
-    "cspell.json"
+    "cspell.json",
+    "android/**"
   ],
   "words": [
     "codecov",
@@ -15,6 +16,7 @@
     "pubspec",
     "riverpod",
     "serializers",
+    "valentinvignal",
     "Vignal",
     "wakatime"
   ]

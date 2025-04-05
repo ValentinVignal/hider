@@ -1,4 +1,4 @@
-# NEXT
+# 0.3.1
 
 - Upgrade to Flutter 3.29.3.
 - Upgrade dependencies.
