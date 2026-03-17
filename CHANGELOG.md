@@ -1,4 +1,4 @@
-## NEXT
+## 0.4.1
 
 - Upgrade to flutter 3.41.4
 
