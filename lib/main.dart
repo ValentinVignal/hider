@@ -15,9 +15,7 @@ import 'router/router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FirebaseFirestore.instance.settings = const Settings(
     persistenceEnabled: false,
   );
@@ -32,17 +30,12 @@ Future<void> main() async {
   usePathUrlStrategy();
   GoRouter.optionURLReflectsImperativeAPIs = true;
 
-  runApp(
-    const ProviderScope(
-      child: HiderApp(),
-    ),
-  );
+  runApp(const ProviderScope(child: HiderApp()));
 }
 
 class HiderApp extends ConsumerWidget {
   const HiderApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
@@ -51,9 +44,7 @@ class HiderApp extends ConsumerWidget {
       theme: lightTheme,
       darkTheme: darkTheme,
       builder: (context, child) {
-        return Hider(
-          child: child!,
-        );
+        return Hider(child: child!);
       },
     );
   }

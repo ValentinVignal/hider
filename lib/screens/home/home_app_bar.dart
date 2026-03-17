@@ -22,12 +22,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      title: AppBarTitle(path),
-      actions: [
-        PopupMenu(path),
-      ],
-    );
+    return AppBar(title: AppBarTitle(path), actions: [PopupMenu(path)]);
   }
 
   @override
@@ -70,10 +65,7 @@ class AppBarTitleView extends ConsumerWidget {
       for (final item in itemsModel.value ?? const <Item>[])
         item.name.isEmpty ? noName : item.name,
     ];
-    return AutoSizeText(
-      nameList.join('/'),
-      maxLines: 2,
-    );
+    return AutoSizeText(nameList.join('/'), maxLines: 2);
   }
 }
 
@@ -109,20 +101,14 @@ class _AppBarTitleEditState extends ConsumerState<AppBarTitleEdit> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      decoration: const InputDecoration(
-        hintText: noName,
-      ),
+      decoration: const InputDecoration(hintText: noName),
       controller: _controller,
     );
   }
 }
 
 @visibleForTesting
-enum PopupMenuOption {
-  export,
-  delete,
-  logout,
-}
+enum PopupMenuOption { export, delete, logout }
 
 class PopupMenu extends ConsumerWidget {
   const PopupMenu(this.path, {super.key});
@@ -138,7 +124,8 @@ class PopupMenu extends ConsumerWidget {
         _export(context);
         break;
       case PopupMenuOption.delete:
-        final confirm = await showDialog<bool>(
+        final confirm =
+            await showDialog<bool>(
               context: context,
               builder: (context) {
                 return const ConfirmDialog(title: 'Delete?');
@@ -153,7 +140,8 @@ class PopupMenu extends ConsumerWidget {
         }
         break;
       case PopupMenuOption.logout:
-        final confirm = await showDialog<bool>(
+        final confirm =
+            await showDialog<bool>(
               context: context,
               builder: (context) {
                 return const ConfirmDialog(title: 'Logout?');
@@ -168,18 +156,18 @@ class PopupMenu extends ConsumerWidget {
   }
 
   Future<void> _export(BuildContext context) async {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Exporting...')),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Exporting...')));
     final data = await FirestoreItemService.getAll();
     await saveFileLocally(
       'hider.json',
       Uint8List.fromList(jsonEncode(data).codeUnits),
     );
     if (context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Exported')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Exported')));
     }
   }
 
@@ -207,10 +195,7 @@ class PopupMenu extends ConsumerWidget {
             ),
           const PopupMenuItem(
             value: PopupMenuOption.logout,
-            child: ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
-            ),
+            child: ListTile(leading: Icon(Icons.logout), title: Text('Logout')),
           ),
         ];
       },

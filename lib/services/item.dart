@@ -27,12 +27,8 @@ sealed class Item with _$Item {
     );
   }
 
-  factory Item.empty(String id) => Item(
-        id: id,
-        description: '',
-        name: '',
-        value: '',
-      );
+  factory Item.empty(String id) =>
+      Item(id: id, description: '', name: '', value: '');
 
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
 }

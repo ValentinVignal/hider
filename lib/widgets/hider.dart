@@ -44,9 +44,7 @@ class _HiderState extends State<Hider> with WidgetsBindingObserver {
               decoration: BoxDecoration(
                 color: Theme.of(context).scaffoldBackgroundColor,
               ),
-              child: const Center(
-                child: Icon(Icons.visibility_off),
-              ),
+              child: const Center(child: Icon(Icons.visibility_off)),
             ),
           ),
       ],

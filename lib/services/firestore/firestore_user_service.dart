@@ -11,9 +11,10 @@ mixin FirestoreUserService {
   );
 
   static Future<FirestoreUser?> getByUsername(String username) async {
-    final querySnapshot = await _collection
-        .where('_0', isEqualTo: AuthenticationModel.hash(username))
-        .get();
+    final querySnapshot =
+        await _collection
+            .where('_0', isEqualTo: AuthenticationModel.hash(username))
+            .get();
 
     if (querySnapshot.docs.isEmpty) {
       return null;

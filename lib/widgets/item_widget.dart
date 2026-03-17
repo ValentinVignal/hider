@@ -71,15 +71,17 @@ class _ItemValueWidgetState extends ConsumerState<ItemValueWidget> {
   @override
   Widget build(BuildContext context) {
     ref.listen<String?>(
-        itemProvider(widget.path).select((value) => value.value),
-        (previous, next) {
-      if (!next.isNullOrEmpty && next != _controller.text) {
-        _controller.text = next!;
-      }
-    });
+      itemProvider(widget.path).select((value) => value.value),
+      (previous, next) {
+        if (!next.isNullOrEmpty && next != _controller.text) {
+          _controller.text = next!;
+        }
+      },
+    );
     final value = ref.watch(
-      originalItemProvider(widget.path)
-          .select((value) => value.value?.value ?? ''),
+      originalItemProvider(
+        widget.path,
+      ).select((value) => value.value?.value ?? ''),
     );
 
     final isEditing = ref.watch(editItemProvider(widget.path));
@@ -123,9 +125,11 @@ class _ItemValueWidgetState extends ConsumerState<ItemValueWidget> {
                   _hide = !_hide;
                 });
               },
-              icon: Icon(_hide
-                  ? Icons.visibility_off_outlined
-                  : Icons.visibility_outlined),
+              icon: Icon(
+                _hide
+                    ? Icons.visibility_off_outlined
+                    : Icons.visibility_outlined,
+              ),
             ),
           ],
         ),
@@ -200,12 +204,13 @@ class _ItemDescriptionWidgetState
   @override
   Widget build(BuildContext context) {
     ref.listen<String?>(
-        itemProvider(widget.path).select((value) => value.description),
-        (previous, next) {
-      if (!next.isNullOrEmpty && next != _controller.text) {
-        _controller.text = next!;
-      }
-    });
+      itemProvider(widget.path).select((value) => value.description),
+      (previous, next) {
+        if (!next.isNullOrEmpty && next != _controller.text) {
+          _controller.text = next!;
+        }
+      },
+    );
 
     final isEditing = ref.watch(editItemProvider(widget.path));
     final Widget child;
@@ -239,10 +244,7 @@ class _ItemDescriptionWidgetState
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 250),
       transitionBuilder: (child, animation) {
-        return ScaleTransition(
-          scale: animation,
-          child: child,
-        );
+        return ScaleTransition(scale: animation, child: child);
       },
       child: child,
     );
