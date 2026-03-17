@@ -8,11 +8,7 @@ import 'package:hider/utils/path.dart';
 import 'package:hider/utils/strings.dart';
 
 class SubItemWidget extends ConsumerWidget {
-  const SubItemWidget({
-    required this.path,
-    required this.item,
-    super.key,
-  });
+  const SubItemWidget({required this.path, required this.item, super.key});
 
   final HiderPath path;
   final Item item;
@@ -23,9 +19,9 @@ class SubItemWidget extends ConsumerWidget {
     return ListTile(
       title: Text(displayName),
       onTap: () {
-        GoRouter.of(context).push(
-          ItemRoute(path.add(item.id).toUri()).location,
-        );
+        GoRouter.of(
+          context,
+        ).push(ItemRoute(path.add(item.id).toUri()).location);
       },
       trailing: IconButton(
         icon: const Icon(Icons.copy),

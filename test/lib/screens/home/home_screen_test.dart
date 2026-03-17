@@ -13,11 +13,9 @@ import 'package:hider/utils/path.dart';
 void main() {
   testWidgets('It should build the home screen', (tester) async {
     FirestoreInstance.mockInstance = FakeFirebaseFirestore();
-    AuthenticationModel.instance.login(const User(
-      id: 'userId',
-      username: 'username',
-      password: 'password',
-    ));
+    AuthenticationModel.instance.login(
+      const User(id: 'userId', username: 'username', password: 'password'),
+    );
     FirestoreItemService.save(
       const HiderPath(),
       const Item(
@@ -28,11 +26,7 @@ void main() {
       ),
     );
     await tester.pumpWidget(
-      const ProviderScope(
-        child: MaterialApp(
-          home: HomeScreen(),
-        ),
-      ),
+      const ProviderScope(child: MaterialApp(home: HomeScreen())),
     );
     expect(find.text('Home'), findsOneWidget);
     await tester.pumpAndSettle();

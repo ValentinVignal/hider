@@ -8,17 +8,12 @@ import '../screens/sign_up/sign_up_screen.dart';
 
 part 'routes.g.dart';
 
-const authenticatedRoutes = {
-  HomeRoute.path,
-};
+const authenticatedRoutes = {HomeRoute.path};
 
-const unauthenticatedRoutes = {
-  LoginRoute.path,
-  SignUpRoute.path,
-};
+const unauthenticatedRoutes = {LoginRoute.path, SignUpRoute.path};
 
 @TypedGoRoute<LoginRoute>(path: '/${LoginRoute.path}')
-class LoginRoute extends GoRouteData {
+class LoginRoute extends GoRouteData with $LoginRoute {
   const LoginRoute();
 
   static const path = 'login';
@@ -29,7 +24,7 @@ class LoginRoute extends GoRouteData {
 }
 
 @TypedGoRoute<SignUpRoute>(path: '/${SignUpRoute.path}')
-class SignUpRoute extends GoRouteData {
+class SignUpRoute extends GoRouteData with $SignUpRoute {
   const SignUpRoute();
   static const path = 'sign-up';
 
@@ -40,11 +35,9 @@ class SignUpRoute extends GoRouteData {
 
 @TypedGoRoute<HomeRoute>(
   path: '/${HomeRoute.path}',
-  routes: [
-    TypedGoRoute<ItemRoute>(path: ItemRoute.urlPath),
-  ],
+  routes: [TypedGoRoute<ItemRoute>(path: ItemRoute.urlPath)],
 )
-class HomeRoute extends GoRouteData {
+class HomeRoute extends GoRouteData with $HomeRoute {
   const HomeRoute();
 
   static const path = 'home';
@@ -55,17 +48,14 @@ class HomeRoute extends GoRouteData {
   }
 }
 
-class ItemRoute extends GoRouteData {
-  const ItemRoute(
-    this.path,
-  );
+class ItemRoute extends GoRouteData with $ItemRoute {
+  const ItemRoute(this.path);
 
   final Uri path;
 
   static const urlPath = ':path';
 
   @override
-  Widget build(BuildContext context, GoRouterState state) => HomeScreen(
-        path: HiderPath.fromUri(path),
-      );
+  Widget build(BuildContext context, GoRouterState state) =>
+      HomeScreen(path: HiderPath.fromUri(path));
 }

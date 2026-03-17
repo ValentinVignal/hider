@@ -21,11 +21,7 @@ class AnimatedScaleSwitcher extends StatelessWidget {
     return AnimatedSwitcher(
       duration: duration,
       transitionBuilder: (child, animation) {
-        return SizeTransition(
-          sizeFactor: animation,
-          axis: axis,
-          child: child,
-        );
+        return SizeTransition(sizeFactor: animation, axis: axis, child: child);
       },
       child: child,
     );

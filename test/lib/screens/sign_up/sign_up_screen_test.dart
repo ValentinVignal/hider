@@ -6,11 +6,7 @@ import 'package:hider/screens/sign_up/sign_up_screen.dart';
 void main() {
   testWidgets('It should build the sign up screen', (tester) async {
     await tester.pumpWidget(
-      const ProviderScope(
-        child: MaterialApp(
-          home: SignUpScreen(),
-        ),
-      ),
+      const ProviderScope(child: MaterialApp(home: SignUpScreen())),
     );
     expect(find.text('Hider'), findsOneWidget);
   });

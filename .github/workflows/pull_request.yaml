@@ -10,12 +10,12 @@ jobs:
     runs-on: macos-latest
     name: Linter
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
       - run: flutter pub get
       - name: Analyze dart code
-        uses: ValentinVignal/action-dart-analyze@v0.17
+        uses: ValentinVignal/action-dart-analyze@v2.1
       - name: Run tests
         run: flutter test --coverage --dart-define="flexible-goldens=true"
       - name: Upload to Codecov
@@ -28,6 +28,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Check code spelling
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Check spelling
-        uses: streetsidesoftware/cspell-action@v6
+        uses: streetsidesoftware/cspell-action@v8

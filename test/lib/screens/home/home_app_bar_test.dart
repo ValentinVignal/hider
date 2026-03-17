@@ -30,18 +30,16 @@ void main() {
   testWidgets('It should export a single item', (tester) async {
     final file = _MockFile();
     when(file.existsSync).thenReturn(false);
-    when(() => file.writeAsBytes(any())).thenAnswer(
-      (invocation) => Future.value(file),
-    );
-    when(PathProviderPlatform.instance.getExternalStoragePath).thenAnswer(
-      (invocation) => Future.value('/path'),
-    );
+    when(
+      () => file.writeAsBytes(any()),
+    ).thenAnswer((invocation) => Future.value(file));
+    when(
+      PathProviderPlatform.instance.getExternalStoragePath,
+    ).thenAnswer((invocation) => Future.value('/path'));
     FirestoreInstance.mockInstance = FakeFirebaseFirestore();
-    AuthenticationModel.instance.login(const User(
-      id: 'userId',
-      username: 'username',
-      password: 'password',
-    ));
+    AuthenticationModel.instance.login(
+      const User(id: 'userId', username: 'username', password: 'password'),
+    );
     await FirestoreItemService.save(
       const HiderPath(),
       const Item(
@@ -54,11 +52,7 @@ void main() {
     await IOOverrides.runZoned(
       () async {
         await tester.pumpWidget(
-          const ProviderScope(
-            child: MaterialApp(
-              home: HomeScreen(),
-            ),
-          ),
+          const ProviderScope(child: MaterialApp(home: HomeScreen())),
         );
         await tester.tap(find.byType(PopupMenuButton<PopupMenuOption>));
         await tester.pumpAndSettle(); // Wait for the menu to open.
@@ -75,31 +69,26 @@ void main() {
     final string = String.fromCharCodes(bytes);
     final json = jsonDecode(string);
 
-    expect(
-      json,
-      const {
-        'id': 'userId',
-        'description': 'itemDescription',
-        'name': 'itemName',
-        'value': 'itemValue'
-      },
-    );
+    expect(json, const {
+      'id': 'userId',
+      'description': 'itemDescription',
+      'name': 'itemName',
+      'value': 'itemValue',
+    });
   });
   testWidgets('It should export an item and its nested item', (tester) async {
     final file = _MockFile();
     when(file.existsSync).thenReturn(false);
-    when(() => file.writeAsBytes(any())).thenAnswer(
-      (invocation) => Future.value(file),
-    );
-    when(PathProviderPlatform.instance.getExternalStoragePath).thenAnswer(
-      (invocation) => Future.value('/path'),
-    );
+    when(
+      () => file.writeAsBytes(any()),
+    ).thenAnswer((invocation) => Future.value(file));
+    when(
+      PathProviderPlatform.instance.getExternalStoragePath,
+    ).thenAnswer((invocation) => Future.value('/path'));
     FirestoreInstance.mockInstance = FakeFirebaseFirestore();
-    AuthenticationModel.instance.login(const User(
-      id: 'userId',
-      username: 'username',
-      password: 'password',
-    ));
+    AuthenticationModel.instance.login(
+      const User(id: 'userId', username: 'username', password: 'password'),
+    );
     await FirestoreItemService.save(
       const HiderPath(),
       const Item(
@@ -121,11 +110,7 @@ void main() {
     await IOOverrides.runZoned(
       () async {
         await tester.pumpWidget(
-          const ProviderScope(
-            child: MaterialApp(
-              home: HomeScreen(),
-            ),
-          ),
+          const ProviderScope(child: MaterialApp(home: HomeScreen())),
         );
         await tester.tap(find.byType(PopupMenuButton<PopupMenuOption>));
         await tester.pumpAndSettle(); // Wait for the menu to open.
@@ -142,22 +127,19 @@ void main() {
     final string = String.fromCharCodes(bytes);
     final json = jsonDecode(string);
 
-    expect(
-      json,
-      const {
-        'id': 'userId',
-        'description': 'itemDescription',
-        'name': 'itemName',
-        'value': 'itemValue',
-        'items': [
-          {
-            'id': 'subItemId',
-            'description': 'subItemDescription',
-            'name': 'subItemName',
-            'value': 'subItemValue'
-          }
-        ]
-      },
-    );
+    expect(json, const {
+      'id': 'userId',
+      'description': 'itemDescription',
+      'name': 'itemName',
+      'value': 'itemValue',
+      'items': [
+        {
+          'id': 'subItemId',
+          'description': 'subItemDescription',
+          'name': 'subItemName',
+          'value': 'subItemValue',
+        },
+      ],
+    });
   });
 }

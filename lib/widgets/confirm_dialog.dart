@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ConfirmDialog extends StatelessWidget {
-  const ConfirmDialog({
-    required this.title,
-    super.key,
-  });
+  const ConfirmDialog({required this.title, super.key});
 
   final String title;
 
@@ -24,7 +21,7 @@ class ConfirmDialog extends StatelessWidget {
             Navigator.of(context).pop(true);
           },
           child: const Text('Yes'),
-        )
+        ),
       ],
     );
   }

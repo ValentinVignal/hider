@@ -9,7 +9,8 @@ class FirestoreUser {
   });
 
   factory FirestoreUser.fromDocumentSnapshot(
-      QueryDocumentSnapshot<Json> documentSnapshot) {
+    QueryDocumentSnapshot<Json> documentSnapshot,
+  ) {
     final data = documentSnapshot.data();
     return FirestoreUser(
       id: documentSnapshot.id,

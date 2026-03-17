@@ -1,9 +1,8 @@
 @JS()
-
 import 'dart:async';
+import 'dart:js_interop';
 import 'dart:typed_data';
 
-import 'package:js/js.dart';
 import 'package:universal_html/html.dart' as html;
 
 /// Annotates `webSaveAs` to invoke JavaScript `window.webSaveAs`.

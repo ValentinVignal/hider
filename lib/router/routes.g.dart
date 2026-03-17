@@ -8,85 +8,99 @@ part of 'routes.dart';
 
 List<RouteBase> get $appRoutes => [$loginRoute, $signUpRoute, $homeRoute];
 
-RouteBase get $loginRoute => GoRouteData.$route(
-  path: '/login',
+RouteBase get $loginRoute =>
+    GoRouteData.$route(path: '/login', factory: $LoginRoute._fromState);
 
-  factory: $LoginRouteExtension._fromState,
-);
-
-extension $LoginRouteExtension on LoginRoute {
+mixin $LoginRoute on GoRouteData {
   static LoginRoute _fromState(GoRouterState state) => const LoginRoute();
 
+  @override
   String get location => GoRouteData.$location('/login');
 
+  @override
   void go(BuildContext context) => context.go(location);
 
+  @override
   Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
+  @override
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
 
+  @override
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $signUpRoute => GoRouteData.$route(
-  path: '/sign-up',
+RouteBase get $signUpRoute =>
+    GoRouteData.$route(path: '/sign-up', factory: $SignUpRoute._fromState);
 
-  factory: $SignUpRouteExtension._fromState,
-);
-
-extension $SignUpRouteExtension on SignUpRoute {
+mixin $SignUpRoute on GoRouteData {
   static SignUpRoute _fromState(GoRouterState state) => const SignUpRoute();
 
+  @override
   String get location => GoRouteData.$location('/sign-up');
 
+  @override
   void go(BuildContext context) => context.go(location);
 
+  @override
   Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
+  @override
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
 
+  @override
   void replace(BuildContext context) => context.replace(location);
 }
 
 RouteBase get $homeRoute => GoRouteData.$route(
   path: '/home',
-
-  factory: $HomeRouteExtension._fromState,
-  routes: [
-    GoRouteData.$route(path: ':path', factory: $ItemRouteExtension._fromState),
-  ],
+  factory: $HomeRoute._fromState,
+  routes: [GoRouteData.$route(path: ':path', factory: $ItemRoute._fromState)],
 );
 
-extension $HomeRouteExtension on HomeRoute {
+mixin $HomeRoute on GoRouteData {
   static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
 
+  @override
   String get location => GoRouteData.$location('/home');
 
+  @override
   void go(BuildContext context) => context.go(location);
 
+  @override
   Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
+  @override
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
 
+  @override
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $ItemRouteExtension on ItemRoute {
+mixin $ItemRoute on GoRouteData {
   static ItemRoute _fromState(GoRouterState state) =>
       ItemRoute(Uri.parse(state.pathParameters['path']!));
 
-  String get location =>
-      GoRouteData.$location('/home/${Uri.encodeComponent(path.toString())}');
+  ItemRoute get _self => this as ItemRoute;
 
+  @override
+  String get location => GoRouteData.$location(
+    '/home/${Uri.encodeComponent(_self.path.toString())}',
+  );
+
+  @override
   void go(BuildContext context) => context.go(location);
 
+  @override
   Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
+  @override
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
 
+  @override
   void replace(BuildContext context) => context.replace(location);
 }

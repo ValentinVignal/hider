@@ -17,13 +17,15 @@ mixin FirestoreItemService {
   );
 
   static DocumentReference<Map<String, dynamic>> _documentReference(
-      HiderPath path) {
+    HiderPath path,
+  ) {
     var documentReference = collection.doc(
       AuthenticationModel.instance.user.id,
     );
     for (final pathItem in path) {
-      documentReference =
-          documentReference.collection(_collectionName).doc(pathItem);
+      documentReference = documentReference
+          .collection(_collectionName)
+          .doc(pathItem);
     }
     return documentReference;
   }
@@ -36,21 +38,20 @@ mixin FirestoreItemService {
 
   /// Watches the sub items below the item with the path [path].
   static Stream<Iterable<Item>> watchSubs(HiderPath path) {
-    return _documentReference(path)
-        .collection(_collectionName)
-        .snapshots()
-        .map((querySnapshot) {
-      return querySnapshot.docs.map((documentSnapshot) {
-        return Item.fromDocumentSnapshot(documentSnapshot);
-      });
-    });
+    return _documentReference(path).collection(_collectionName).snapshots().map(
+      (querySnapshot) {
+        return querySnapshot.docs.map((documentSnapshot) {
+          return Item.fromDocumentSnapshot(documentSnapshot);
+        });
+      },
+    );
   }
 
   /// Creates a sub item below the item with the path [path].
   static Future<String> create(HiderPath path) async {
-    final collectionReference = _documentReference(path).collection(
-      _collectionName,
-    );
+    final collectionReference = _documentReference(
+      path,
+    ).collection(_collectionName);
     final documentReference = await collectionReference.add(const {});
     return documentReference.id;
   }

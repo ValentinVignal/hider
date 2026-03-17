@@ -1,3 +1,7 @@
+## NEXT
+
+- Upgrade to flutter 3.41.4
+
 ## 0.4.0
 
 - Removes warning message on login.

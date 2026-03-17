@@ -31,10 +31,7 @@ class SignUpScreen extends StatelessWidget {
                 child: ListView(
                   children: [
                     Center(
-                      child: Text(
-                        'Hider',
-                        style: theme.textTheme.displayLarge,
-                      ),
+                      child: Text('Hider', style: theme.textTheme.displayLarge),
                     ),
                     const SizedBox(height: 16),
                     const Padding(
@@ -98,7 +95,8 @@ class _SignUpFormState extends State<_SignUpForm> {
     });
     final router = GoRouter.of(context);
 
-    final confirm = (await showDialog<bool>(
+    final confirm =
+        (await showDialog<bool>(
           context: context,
           builder: (_) => const _ConfirmationDialog(),
         )) ??
@@ -121,11 +119,9 @@ class _SignUpFormState extends State<_SignUpForm> {
 
     await FirestoreItemService.collection.doc(user.id).set(const {});
 
-    AuthenticationModel.instance.login(User(
-      id: user.id,
-      username: _username,
-      password: _password1,
-    ));
+    AuthenticationModel.instance.login(
+      User(id: user.id, username: _username, password: _password1),
+    );
 
     router.go(const HomeRoute().location);
   }
@@ -136,9 +132,7 @@ class _SignUpFormState extends State<_SignUpForm> {
     return Column(
       children: [
         TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Username',
-          ),
+          decoration: const InputDecoration(labelText: 'Username'),
           initialValue: _username,
           onChanged: (value) {
             setState(() {
@@ -222,9 +216,7 @@ class _SignUpFormState extends State<_SignUpForm> {
           child: Center(
             child: Text(
               _error,
-              style: TextStyle(
-                color: theme.colorScheme.error,
-              ),
+              style: TextStyle(color: theme.colorScheme.error),
             ),
           ),
         ),
