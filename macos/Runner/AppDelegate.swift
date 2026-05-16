@@ -8,4 +8,8 @@ class AppDelegate: FlutterAppDelegate {
     FirebaseApp.configure()
     return true
   }
+
+  override func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
+    return true
+  }
 }
