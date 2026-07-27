@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hider/screens/home/home_app_bar.dart';
 import 'package:hider/services/item_model.dart';
@@ -7,6 +6,7 @@ import 'package:hider/widgets/first_fab.dart';
 import 'package:hider/widgets/item_widget.dart';
 import 'package:hider/widgets/second_fab.dart';
 import 'package:hider/widgets/sub_item_widget.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// The screen of one item.
 /// It contains:
@@ -79,8 +79,8 @@ class HomeContent extends ConsumerWidget {
                         ),
                       );
                     },
-                    loading:
-                        () => const Center(child: CircularProgressIndicator()),
+                    loading: () =>
+                        const Center(child: CircularProgressIndicator()),
                     data: (data) {
                       final subItem = data.toList()[index - (isBig ? 0 : 1)];
                       return Hero(

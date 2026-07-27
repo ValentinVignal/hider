@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -10,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hider/firebase_options.dart';
 import 'package:hider/utils/theme.dart';
 import 'package:hider/widgets/hider.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'router/router.dart';
 

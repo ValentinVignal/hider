@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hider/screens/home/home_screen.dart';
 import 'package:hider/utils/path.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../screens/login/login_screen.dart';
 import '../screens/sign_up/sign_up_screen.dart';

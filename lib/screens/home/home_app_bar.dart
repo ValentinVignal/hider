@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hider/services/authentication_model.dart';
@@ -12,6 +11,7 @@ import 'package:hider/services/item_model.dart';
 import 'package:hider/utils/download_file/download_file.dart';
 import 'package:hider/utils/path.dart';
 import 'package:hider/utils/strings.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../services/firestore/firestore_item_service.dart';
 import '../../widgets/confirm_dialog.dart';

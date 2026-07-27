@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:animated_collection/animated_collection.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../router/routes.dart';
 import '../../services/authentication_model.dart';
@@ -177,8 +177,9 @@ class _SignUpFormState extends State<_SignUpForm> {
         TextFormField(
           decoration: InputDecoration(
             labelText: 'Confirm password',
-            errorText:
-                _password1 != _password2 ? 'Passwords do not match' : null,
+            errorText: _password1 != _password2
+                ? 'Passwords do not match'
+                : null,
             suffixIcon: IconButton(
               icon: Icon(
                 _hidePassword

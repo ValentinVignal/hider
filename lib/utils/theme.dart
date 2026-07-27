@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// The light theme of the application.
 final lightTheme = ThemeData(brightness: Brightness.light, useMaterial3: true);

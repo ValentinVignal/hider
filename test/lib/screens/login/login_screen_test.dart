@@ -1,9 +1,9 @@
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hider/screens/login/login_screen.dart';
 import 'package:hider/services/firestore/instance.dart';
+import 'package:material_ui/material_ui.dart';
 
 void main() {
   tearDown(() {

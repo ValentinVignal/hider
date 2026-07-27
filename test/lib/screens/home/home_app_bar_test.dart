@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hider/screens/home/home_app_bar.dart';
@@ -13,6 +12,7 @@ import 'package:hider/services/firestore/instance.dart';
 import 'package:hider/services/item.dart';
 import 'package:hider/services/user.dart';
 import 'package:hider/utils/path.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';

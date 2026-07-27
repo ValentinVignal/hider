@@ -1,5 +1,4 @@
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hider/screens/home/home_screen.dart';
@@ -9,6 +8,7 @@ import 'package:hider/services/firestore/instance.dart';
 import 'package:hider/services/item.dart';
 import 'package:hider/services/user.dart';
 import 'package:hider/utils/path.dart';
+import 'package:material_ui/material_ui.dart';
 
 void main() {
   testWidgets('It should build the home screen', (tester) async {

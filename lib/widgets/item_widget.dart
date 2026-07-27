@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +6,7 @@ import 'package:hider/services/item_model.dart';
 import 'package:hider/utils/path.dart';
 import 'package:hider/utils/strings.dart';
 import 'package:markdown/markdown.dart' as md;
+import 'package:material_ui/material_ui.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ItemWidget extends ConsumerWidget {

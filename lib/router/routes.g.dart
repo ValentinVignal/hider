@@ -8,8 +8,11 @@ part of 'routes.dart';
 
 List<RouteBase> get $appRoutes => [$loginRoute, $signUpRoute, $homeRoute];
 
-RouteBase get $loginRoute =>
-    GoRouteData.$route(path: '/login', factory: $LoginRoute._fromState);
+RouteBase get $loginRoute => GoRouteData.$route(
+  path: '/login',
+  hasOverriddenOnExit: false,
+  factory: $LoginRoute._fromState,
+);
 
 mixin $LoginRoute on GoRouteData {
   static LoginRoute _fromState(GoRouterState state) => const LoginRoute();
@@ -31,8 +34,11 @@ mixin $LoginRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $signUpRoute =>
-    GoRouteData.$route(path: '/sign-up', factory: $SignUpRoute._fromState);
+RouteBase get $signUpRoute => GoRouteData.$route(
+  path: '/sign-up',
+  hasOverriddenOnExit: false,
+  factory: $SignUpRoute._fromState,
+);
 
 mixin $SignUpRoute on GoRouteData {
   static SignUpRoute _fromState(GoRouterState state) => const SignUpRoute();
@@ -56,8 +62,15 @@ mixin $SignUpRoute on GoRouteData {
 
 RouteBase get $homeRoute => GoRouteData.$route(
   path: '/home',
+  hasOverriddenOnExit: false,
   factory: $HomeRoute._fromState,
-  routes: [GoRouteData.$route(path: ':path', factory: $ItemRoute._fromState)],
+  routes: [
+    GoRouteData.$route(
+      path: ':path',
+      hasOverriddenOnExit: false,
+      factory: $ItemRoute._fromState,
+    ),
+  ],
 );
 
 mixin $HomeRoute on GoRouteData {

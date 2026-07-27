@@ -4,8 +4,8 @@ import 'dart:math';
 import 'package:animated_collection/animated_collection.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../router/routes.dart';
 import '../../services/authentication_model.dart';
